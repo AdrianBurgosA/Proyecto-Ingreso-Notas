@@ -12,6 +12,7 @@ const App = () => {
       <Routes>
         <Route path="/importData" element={<ImportData />} />
         <Route path="/importProfessors" element={<ImportProfessors />} />
+        
 
       </Routes>
     </BrowserRouter>

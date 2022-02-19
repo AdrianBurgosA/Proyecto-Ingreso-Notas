@@ -4,11 +4,47 @@ const Professor = require("../model/Professor");
 
 //create Professor
 router.post("/professors", (req, res) => {
-    const professor = Professor(req.body);
-    professor
-      .save()
-      .then((data) => res.json(data))
-      .catch((error) => res.json({ message: error }));
+    let request = req.body;
+
+    const name = request.Nombres + "";
+    const lastName = request.Apellidos + "";
+    const bornYear = request.FechaNacimiento + "";
+    const idCard = request.CI + "";
+    const specialization = request.Especializacion + "";
+    const email = request.Correo + "";
+    const user = request.Usuario + "";
+    const password = request.Contraseña + "";
+    
+    let professor = new Professor(
+        {
+            "name": name,
+            "lastName": lastName,
+            "bornYear": bornYear,
+            "idCard": idCard,
+            "specialization": specialization,
+            "email": email,
+            "user": user,
+            "password": password,
+            "idCourse": "",
+            "idSubject": ""
+        }
+    );
+
+    professor.save((err, requestDB) => {
+        if (err) {
+            res.json({
+                result: false,
+                message: "No se pudieron registrar los datos de los docentes.",
+                err
+            });
+        }else {
+            res.json({
+                result: true,
+                message: "Se realizo el ingreso de docentes con éxito.",
+                requestDB
+            });
+        }
+    });
 });
   
 //get all Professors

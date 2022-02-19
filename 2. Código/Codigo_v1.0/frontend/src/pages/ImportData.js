@@ -11,6 +11,8 @@ const ImportData = () => {
             <NavbarAdmin />
             <br />
             <ImportDataComponent />
+            <br />
+            <ImportDataComponent />
         </> 
     );
 

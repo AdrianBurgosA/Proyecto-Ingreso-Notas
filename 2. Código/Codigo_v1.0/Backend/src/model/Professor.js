@@ -36,11 +36,11 @@ const professorSchema = mongoose.Schema({
     },
     idCourse:{
         type: 'string',
-        required: true
+        required: false
     },
     idSubject:{
         type: 'string',
-        required: true
+        required: false
     }
 })
 
