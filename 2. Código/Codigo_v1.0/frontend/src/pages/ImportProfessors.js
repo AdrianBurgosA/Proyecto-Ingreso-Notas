@@ -5,11 +5,11 @@ import {saveProfessors} from '../services/professorService';
 
 const cookies = new Cookies();
 
-const handleSubmit = (professorsData) => {
-    saveProfessors(professorsData);
-};
-
 const ImportData = () => {
+
+    const handleSubmit = (professorsData) => {
+        saveProfessors(professorsData);
+    };
 
     return (
         <>
