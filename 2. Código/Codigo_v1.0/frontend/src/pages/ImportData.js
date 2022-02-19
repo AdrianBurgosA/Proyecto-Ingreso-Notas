@@ -10,8 +10,10 @@ const ImportData = () => {
         <>
             <NavbarAdmin />
             <br />
+            Importar cursos
             <ImportDataComponent />
             <br />
+            Importar materias
             <ImportDataComponent />
         </> 
     );

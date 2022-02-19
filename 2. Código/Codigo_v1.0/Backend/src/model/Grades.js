@@ -8,15 +8,15 @@ const gradesSchema = mongoose.Schema({
     },
     idStudent:{
         type: 'string',
-        required: true
+        required: false
     },
     idProfessor:{
         type: 'string',
-        required: true
+        required: false
     },
     idSubject:{
         type: 'string',
-        required: true
+        required: false
     },
     quimester:{
         type: 'number',

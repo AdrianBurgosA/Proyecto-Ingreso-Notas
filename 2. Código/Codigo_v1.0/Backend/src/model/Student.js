@@ -40,7 +40,7 @@ const studentSchema = mongoose.Schema({
     },
     idCourse:{
         type: 'string',
-        required: true
+        required: false
     }
 })
 

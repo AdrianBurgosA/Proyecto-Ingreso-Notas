@@ -12,7 +12,7 @@ const courseSchema = mongoose.Schema({
     },
     idSchoolYear:{
         type: 'string',
-        required: true
+        required: false
     }
 })
 
