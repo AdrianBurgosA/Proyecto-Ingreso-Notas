@@ -23,6 +23,7 @@ export async function getCourses(){
             method: 'GET',
         })
         return response;
+        
     }catch(error){
         console.log(error);
     }
