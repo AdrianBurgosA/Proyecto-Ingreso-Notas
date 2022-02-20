@@ -13,8 +13,8 @@ const App = () => {
       <Route path="/" element={<Login />} />
         <Route path="/importData" element={<ImportData />} />
         <Route path="/importProfessors" element={<ImportProfessors />} />
-        <Route path="/registerStudent" element={<RegisterStudent/>}/>
-        <Route path="/registerPeriod" element={<RegisterPeriod/>}/>
+        <Route path="/createStudent" element={<RegisterStudent/>}/>
+        <Route path="/createSchoolYear" element={<RegisterPeriod/>}/>
       </Routes>
     </BrowserRouter>
   )

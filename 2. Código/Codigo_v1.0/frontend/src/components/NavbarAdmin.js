@@ -13,7 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom';
 import '../index.css';
 import Cookies from 'universal-cookie/es6';
-//import exitButton from '../img/exitButton.jpg';
+import exitButton from '../img/exitButton.jpg';
 
 const cookies = new Cookies()
 
@@ -56,6 +56,19 @@ const NavbarAdmin = () => {
     const handleCloseAsignations = () => {
         setSubmenuAsignations(null);
     };
+
+    const logOut = () => {
+        cookies.remove('id', {path: "/"})
+        cookies.remove('name', {path: "/"})
+        cookies.remove('lastName', {path: "/"})
+        cookies.remove('userName', {path: "/"})
+        cookies.remove('idCard', {path: "/"})
+        cookies.remove('email', {path: "/"})
+        cookies.remove('gym', {path: "/"})
+        cookies.remove('type', {path: "/"})
+
+        window.location.href = './'
+    }
 
     return (
         <AppBar position="static" style={{ backgroundColor: '#4d83b8' }}>
@@ -199,7 +212,7 @@ const NavbarAdmin = () => {
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Salir">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Botón salir" src="./img/exitButton.jpg"/>
+                                <Avatar alt="Botón salir" src={exitButton} />
                             </IconButton>
                         </Tooltip>
                         
@@ -220,7 +233,7 @@ const NavbarAdmin = () => {
                             onClose={handleCloseUserMenu}
                         >
                             
-                            <MenuItem key='exit'>
+                            <MenuItem key='exit' onClick={logOut}>
                                 <Typography textAlign="center">Salir</Typography>
                             </MenuItem>
                             

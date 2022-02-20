@@ -3,6 +3,7 @@ import NavbarAdmin from '../components/NavbarAdmin';
 import ImportDataComponent from '../components/ImportData';
 import {saveSubject} from '../services/subjectService';
 import {saveCourse} from '../services/courseService';
+import {useEffect} from 'react';
 
 const cookies = new Cookies();
 
@@ -15,6 +16,12 @@ const ImportData = () => {
     const handleSubmitCourse = (courseData) => {
         saveCourse(courseData);
     };
+
+    useEffect(() => {
+        if (typeof cookies.get('user') === 'undefined' || cookies.get('type', {path: "/"}) !== '0') {
+            window.location.href = "./";
+        }
+    });
 
     return (
         <>

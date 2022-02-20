@@ -17,29 +17,25 @@ import logo from '../img/logo.png';
 
 const cookies = new Cookies()
 
-function App() {
+const Login = () => {
 
   const [values, setValues] = React.useState({
     amount: '',
     password: '',
     weight: '',
     weightRange: '',
-    showPassword: false,
+    showPassword: false
   });
 
   const [loginValues, setLoginValues] = useState({
     user: '',
     password: ''
-  })
-
-  const HandleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
+  });
 
   const handleChange = (event) => {
     const { name, value } = event.target
     setLoginValues({ ...loginValues, [name]: value})
-  }
+  };
 
   const handleClickShowPassword = () => {
     setValues({
@@ -59,17 +55,8 @@ function App() {
 
   useEffect(() => {
     if (typeof cookies.get('user') !== 'undefined') {
-      if (cookies.get('type') === '1') {
-        window.location.href = "./homeScreenSuperAdmin"
-
-      }else if(cookies.get('type') === '2') {
-        window.location.href = "./homeScreenLeaderGym"
-
-      }else if(cookies.get('type') === '3') {
-        window.location.href = "./homeScreenSystemAdmin"
-
-      }else if(cookies.get('type') === '4') {
-        window.location.href = "./homeScreenMantAdmin"
+      if (cookies.get('type') === '0') {
+        window.location.href = "./createStudent";
 
       }
     }
@@ -117,7 +104,7 @@ function App() {
           <FormControl variant="standard">
               <Input
                 id="input-with-icon-adornment"
-                name='userName'
+                name='user'
                 startAdornment={
                     <InputAdornment position="start">
                     <AccountCircle />
@@ -127,7 +114,7 @@ function App() {
                 sx={{width: '105%', my: 2}}
                 variant = "standard"
                 placeholder = "Ingrese su Usuario"
-                value={loginValues.userName}
+                value={loginValues.user}
                 onChange={handleChange}
               />
           </FormControl>
@@ -144,8 +131,6 @@ function App() {
               name='password'
               type={values.showPassword ? 'text' : 'password'}
               value={values.password}
-              onChange={HandleChange('password')}
-              // type="password"
               
               endAdornment={
                 <InputAdornment position="end">
@@ -186,7 +171,6 @@ function App() {
         </Box>
       </Box>
     </form>
-  )
-}
-
-export default App;
+  );
+};
+export default Login;
