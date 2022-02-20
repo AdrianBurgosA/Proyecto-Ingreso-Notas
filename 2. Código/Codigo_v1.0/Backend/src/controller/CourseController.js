@@ -45,19 +45,28 @@ router.get("/courses", (req, res) => {
 
 //get a course
 router.get("/courses/:id", (req, res) => {
-const { id } = req.params;
+    const { id } = req.params;
     Course.findById(id)
+        .then((data) => res.json(data))
+        .catch((error) => res.json({ message: error }));
+});
+
+//get courses without school year
+router.get("/coursesWithoutSchoolYear", (req, res) => {
+    Course.find({
+        idSchoolYear: ''
+    })
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });
 
 //update a course
 router.put("/courses/:id", (req, res) => {
-const { id } = req.params;
-const {number, parallel, level, idSchoolYear} = req.body;
-    Course.updateOne({_id: id},{$set: {number, parallel, level, idSchoolYear}})
-        .then((data) => res.json(data))
-        .catch((error) => res.json({ message: error }));
+    const { id } = req.params;
+    const {idSchoolYear} = req.body;
+        Course.updateOne({_id: id},{$set: {idSchoolYear}})
+            .then((data) => res.json(data))
+            .catch((error) => res.json({ message: error }));
 });
 
 //delete a course

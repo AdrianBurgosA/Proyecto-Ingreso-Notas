@@ -5,6 +5,7 @@ import ImportData from './pages/ImportData';
 import ImportProfessors from './pages/ImportProfessors';
 import RegisterStudent from './pages/RegisterStudent'
 import RegisterPeriod from './pages/CreatePeriod'
+import AssignationCourseToSchoolYear from './pages/AssignationCourseToSchoolYear';
 import AssignationSubjectoToProfessor from './pages/AssignationSubjectToProfessor';
 
 const App = () => {
@@ -16,6 +17,7 @@ const App = () => {
         <Route path="/importProfessors" element={<ImportProfessors />} />
         <Route path="/createStudent" element={<RegisterStudent/>}/>
         <Route path="/createSchoolYear" element={<RegisterPeriod/>}/>
+        <Route path="/coursesToSchoolYear" element={<AssignationCourseToSchoolYear/>}/>
         <Route path="/subjectToProfessor" element={<AssignationSubjectoToProfessor/>}/>
       </Routes>
     </BrowserRouter>
