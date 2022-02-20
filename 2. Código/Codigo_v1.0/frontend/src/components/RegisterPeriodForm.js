@@ -2,8 +2,6 @@ import React,{useState} from 'react'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import Typography from '@mui/material/Typography';
 
@@ -15,7 +13,7 @@ const RegisterPeriodForm = () => {
     })
 
     return(
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <>
             <br/><Typography variant="h3" gutterBottom component="div" sx={{textAlign:'center'}}>
                 Registrar nuevo año lectivo
             </Typography><br/><br/>
@@ -27,15 +25,25 @@ const RegisterPeriodForm = () => {
             >
                 <React.Fragment>
                     <TextField value={period.name} onChange={(event) => setPeriod({...period,name:event.target.value})}id="outlined-basic" label="Nombre" variant="outlined" /><br/><br/>
-                    <DesktopDatePicker
+                    <TextField
+                        id="date"
                         label="Fecha de comienzo"
-                        inputFormat="MM/dd/yyyy"
-                        renderInput={(params) => <TextField {...params} />}
+                        type="date"
+                        defaultValue="2022-05-24"
+                        sx={{ width: 220 }}
+                        InputLabelProps={{
+                        shrink: true,
+                        }}
                     /><br/><br/>
-                    <DesktopDatePicker
+                    <TextField
+                        id="date"
                         label="Fecha de cierre"
-                        inputFormat="MM/dd/yyyy"
-                        renderInput={(params) => <TextField {...params} />}
+                        type="date"
+                        defaultValue="2023-05-24"
+                        sx={{ width: 220 }}
+                        InputLabelProps={{
+                        shrink: true,
+                        }}
                     /><br/><br/>
                     <center>
                         <Button
@@ -52,7 +60,7 @@ const RegisterPeriodForm = () => {
                     </center>
                 </React.Fragment>
             </Box>
-        </LocalizationProvider>
+        </>
     );
 }
 

@@ -50,7 +50,7 @@ const Login = () => {
 
   const startSession = (event) => {
     event.preventDefault();
-    checkLogin(loginValues);
+    checkLogin(loginValues, setLoginValues);
   }
 
   useEffect(() => {

@@ -4,7 +4,7 @@ import Cookies from 'universal-cookie/es6'
 const cookies = new Cookies()
 const baseUrl = "http://localhost:3001";
 
-export function checkLogin(loginValues) {
+export function checkLogin(loginValues, setLoginValues) {
 
     const response =  axios.get(`${baseUrl}/users`)
     .then(response => {
@@ -24,7 +24,6 @@ export function checkLogin(loginValues) {
             cookies.set('user', dataLogin.user, {path: "/"});
             cookies.set('password', dataLogin.password, {path: "/"});
             cookies.set('type', dataLogin.type, {path: "/"});
-
             window.alert('Bienvenido');
 
             switch (dataLogin.type) {
@@ -32,9 +31,12 @@ export function checkLogin(loginValues) {
                     window.location.href = "./createStudent";
                     break;
             }
-
         }else {
-          window.alert('Usuario o contraseña incorrectos')
+            setLoginValues({
+                user: '',
+                password: ''
+            });
+            window.alert('Usuario o contraseña incorrectos');
         }
 
     }).catch(error => {

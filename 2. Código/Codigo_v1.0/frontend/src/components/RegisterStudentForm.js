@@ -2,8 +2,6 @@ import React,{useState} from 'react'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import Typography from '@mui/material/Typography';
 
@@ -21,7 +19,7 @@ const RegisterStudentForm = () => {
     })
 
     return(
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <>
             <br/><Typography variant="h3" gutterBottom component="div" sx={{textAlign:'center'}}>
                 Registrar nuevo estudiante
             </Typography><br/><br/>
@@ -39,11 +37,16 @@ const RegisterStudentForm = () => {
                 <TextField value={student.email} onChange={(event) => setStudent({...student,email:event.target.value})}id="outlined-basic" label="Correo eléctronico" variant="outlined" /><br/>
                 <TextField value={student.user} onChange={(event) => setStudent({...student,user:event.target.value})}id="outlined-basic" label="Usuario" variant="outlined" /><br/>
                 <TextField value={student.password} onChange={(event) => setStudent({...student,password:event.target.value})}id="outlined-basic" label="Contraseña" variant="outlined" /><br/>
-                <DesktopDatePicker
-                    label="Date desktop"
-                    inputFormat="MM/dd/yyyy"
-                    renderInput={(params) => <TextField {...params} />}
-                /><br/>
+                <TextField
+                        id="date"
+                        label="Fecha de nacimiento"
+                        type="date"
+                        defaultValue="2022-05-24"
+                        sx={{ width: 220 }}
+                        InputLabelProps={{
+                        shrink: true,
+                        }}
+                /><br/><br/>
                 <Button
                     variant="contained"
                     size = "large"
@@ -56,7 +59,7 @@ const RegisterStudentForm = () => {
                     Registrar
                 </Button><br/>
             </Box>
-        </LocalizationProvider>
+        </>
     );
 }
 
