@@ -25,7 +25,7 @@ const ImportData = () => {
         <>
             <NavbarAdmin />
             <br />
-            <ImportDataComponent handleSubmit = {handleSubmit} title="Importar Profesores" values={professorValues} serValues={setProfessorValues} />
+            <ImportDataComponent handleSubmit = {handleSubmit} title="Importar Profesores" values={professorValues} setValues={setProfessorValues} />
         </> 
     );
 

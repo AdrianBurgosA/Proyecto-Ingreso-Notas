@@ -25,7 +25,7 @@ router.post("/professors", (req, res) => {
             "email": email,
             "user": user,
             "password": password,
-            "idCourse": "",
+            "idCourse": [],
             "idSubject": ""
         }
     );

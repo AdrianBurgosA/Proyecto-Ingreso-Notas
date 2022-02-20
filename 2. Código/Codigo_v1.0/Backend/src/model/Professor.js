@@ -35,7 +35,7 @@ const professorSchema = mongoose.Schema({
         required: true
     },
     idCourse:{
-        type: 'string',
+        type: 'array',
         required: false
     },
     idSubject:{
