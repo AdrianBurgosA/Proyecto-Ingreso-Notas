@@ -15,3 +15,17 @@ export async function saveSubject(subjectData){
         console.log(error);
     }
 };
+
+export async function getSubjectsByType(){
+    try{
+        const response = await axios({
+            url: `${baseUrl}/subjectsByType`,
+            method: 'GET',
+        })
+        
+        return response;
+  
+    }catch(error){
+      console.log(error)
+    }
+};

@@ -9,6 +9,10 @@ const subjectSchema = mongoose.Schema({
     level:{
         type: 'string',
         required: true
+    },
+    type:{
+        type: 'number',
+        required: true
     }
     
 })

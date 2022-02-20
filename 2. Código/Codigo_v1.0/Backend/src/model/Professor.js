@@ -22,6 +22,10 @@ const professorSchema = mongoose.Schema({
         type: 'string',
         required: true
     },
+    disponibility:{
+        type: 'number',
+        required: true
+    },
     email:{
         type: 'string',
         required: true

@@ -185,23 +185,23 @@ const NavbarAdmin = () => {
                             open={Boolean(submenuAsignations)}
                             onClose={handleCloseAsignations}
                         >
-                        <Link to='/reportLocals' className='link'>    
+                        <Link to='/coursesToSchoolYear' className='link'>    
                             <MenuItem key='coursesToSchoolYear'>                              
                                     <Typography textAlign="center">Cursos a año lectivo</Typography>
                             </MenuItem>
                         </Link>
-                        <Link to='/reportTIDevices' className='link'>
+                        <Link to='/courseToProfessor' className='link'>
                             <MenuItem key='courseToProfessor'>
                                     <Typography textAlign="center">Curso a docente</Typography>
                                 
                             </MenuItem>
                         </Link>
-                        <Link to='/reportGymMachines' className='link'>
+                        <Link to='/subjectToProfessor' className='link'>
                             <MenuItem key='subjectToProfessor'>                               
                                     <Typography textAlign="center">Materia a docente</Typography>
                             </MenuItem>
                         </Link>
-                        <Link to='/reportUsers' className='link'>
+                        <Link to='/studentToCourse' className='link'>
                             <MenuItem key='studentToCourse'>
                                 <Typography textAlign="center">Estudiante a curso</Typography>
                             </MenuItem>

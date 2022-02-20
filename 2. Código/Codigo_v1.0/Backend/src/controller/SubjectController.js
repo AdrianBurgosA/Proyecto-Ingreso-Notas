@@ -12,7 +12,8 @@ router.post("/subjects", (req, res) => {
     let subject = new Subject(
         {
             "name": name,
-            "level": level
+            "level": level,
+            "type": request.Tipo
         }
     );
 
@@ -40,6 +41,15 @@ router.get("/subjects", (req, res) => {
         .catch((error) => res.json({ message: error }));
 });
 
+//get Subjects by type
+router.get("/subjectsByType", (req, res) => {
+    Subject.find({
+        type: 1
+    })
+        .then((data) => res.json(data))
+        .catch((error) => res.json({ message: error }));
+});
+
 //get a Subject
 router.get("/subjects/:id", (req, res) => {
 const { id } = req.params;
@@ -51,8 +61,8 @@ const { id } = req.params;
 //update a Subject
 router.put("/subjects/:id", (req, res) => {
 const { id } = req.params;
-const {name, level} = req.body;
-    Subject.updateOne({_id: id},{$set: {name, level}})
+const {name, level, type} = req.body;
+    Subject.updateOne({_id: id},{$set: {name, level, type}})
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });

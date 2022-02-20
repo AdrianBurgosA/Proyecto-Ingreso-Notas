@@ -22,6 +22,7 @@ router.post("/professors", (req, res) => {
             "bornYear": bornYear,
             "idCard": idCard,
             "specialization": specialization,
+            "disponibility": request.Disponibilidad,
             "email": email,
             "user": user,
             "password": password,
@@ -54,10 +55,21 @@ router.get("/professors", (req, res) => {
         .catch((error) => res.json({ message: error }));
 });
 
-//get a Professor
+//get a Professor by id
 router.get("/professors/:id", (req, res) => {
-const { id } = req.params;
+    const { id } = req.params;
     Professor.findById(id)
+        .then((data) => res.json(data))
+        .catch((error) => res.json({ message: error }));
+});
+
+//get Professors that do not have subjects
+router.get("/professorsWithoutSubjects", (req, res) => {
+    const { id } = req.params;
+    Professor.find({
+        disponibility: 1,
+        idSubject: ''
+    })
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });
@@ -65,8 +77,8 @@ const { id } = req.params;
 //update a Professor
 router.put("/professors/:id", (req, res) => {
 const { id } = req.params;
-const {name, lastName, bornYear, idCard, specialization, idCourse, idSubject} = req.body;
-    Professor.updateOne({_id: id},{$set: {name, lastName, bornYear, idCard, specialization, email, user, password, idCourse, idSubject}})
+const {idCourse, idSubject} = req.body;
+    Professor.updateOne({_id: id},{$set: {idCourse, idSubject}})
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });
