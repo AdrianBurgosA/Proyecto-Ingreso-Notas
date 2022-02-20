@@ -15,3 +15,15 @@ export async function saveCourse(courseData){
         console.log(error);
     }
 };
+
+export async function getCourses(){
+    try{
+        const response = await axios({
+            url: `${baseUrl}/courses`,
+            method: 'GET',
+        })
+        return response;
+    }catch(error){
+        console.log(error);
+    }
+};

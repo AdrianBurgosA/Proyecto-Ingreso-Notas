@@ -63,6 +63,19 @@ export async function getProfessorById(professorId){
     }
 };
 
+export async function getProfessorsByLevel(level){
+    try{
+        const response = await axios({
+            url: `${baseUrl}/professors/${level}`,
+            method: 'GET',
+        })
+        console.log('level service : '+ level)
+        return response;
+    }catch(error){
+        console.log(error)
+    }
+}
+
 export async function updateProfessor(professorData, setProfessorData){
     console.log(professorData);
 

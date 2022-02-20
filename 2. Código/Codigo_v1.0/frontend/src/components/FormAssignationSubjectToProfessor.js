@@ -33,12 +33,10 @@ const RegisterStudentForm = (props) => {
                 <Box sx={{ width: '100%', marginLeft: '17%'}}>
                     <Grid container>
                         <Grid item xs={4}>
-
                             <Card sx={{borderRadius: '20px', width: '85%', p: 3, boxShadow: '1px 1px 5px #333', marginTop: '30%'}}>
                                 <Typography variant="h3" gutterBottom component="div">
                                     Docentes
                                 </Typography><br/><br/>
-
                                 <FormControl fullWidth>
                                     <InputLabel id="labelProfessors">Profesores</InputLabel>
                                     <Select
@@ -60,7 +58,6 @@ const RegisterStudentForm = (props) => {
                                 </FormControl>
                             </Card>
                         </Grid>
-
                         <Grid item xs={4}>
                         <Card sx={{borderRadius: '20px', width: '85%', p: 3, boxShadow: '1px 1px 5px #333', marginTop: '30%'}}>
                                 <Typography variant="h3" gutterBottom component="div">
