@@ -20,3 +20,17 @@ export async function savePeriod(periodData, setPeriodDataValues){
         endDate: new Date()
     });
 };
+
+export async function getSchoolYears(){
+    try{
+        const response = await axios({
+            url: `${baseUrl}/schoolYears`,
+            method: 'GET',
+        })
+        
+        return response;
+  
+    }catch(error){
+      console.log(error)
+    }
+};

@@ -55,7 +55,7 @@ export async function getProfessorById(professorId){
             url: `${baseUrl}/professors/${professorId}`,
             method: 'GET',
         })
-        console.log(response)
+
         return response;
   
     }catch(error){
@@ -77,8 +77,6 @@ export async function getProfessorsByLevel(level){
 }
 
 export async function updateProfessor(professorData, setProfessorData){
-    console.log(professorData);
-
     const response = await axios.put(`${baseUrl}/professors/${professorData._id}`, {
         idCourse: professorData.idCourse,
         idSubject: professorData.idSubject
