@@ -65,6 +65,14 @@ router.get("/professors/:id", (req, res) => {
         .catch((error) => res.json({ message: error }));
 });
 
+//get a professor by level
+router.get("/professors/:level",(req,res) => {
+    const { level } = req.params;
+    Professor.find({level: level})
+        .then((data) => res.json(data))
+        .catch((error) => res.json({ message: error }));
+});
+
 //get Professors that do not have subjects
 router.get("/professorsWithoutSubjects", (req, res) => {
     const { id } = req.params;
@@ -92,5 +100,4 @@ router.delete("/professors/:id", (req, res) => {
     .then((data) => res.json(data))
     .catch((error) => res.json({ message: error }));
 });
-
 module.exports = router;
