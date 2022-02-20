@@ -2,14 +2,12 @@ import React from 'react'
 import {Box, Button, MenuItem, Select, FormControl, InputLabel, Grid, Card, Typography} from "@mui/material";
 
 const FormAssignationCourseToProfessor = (props) => {
-    const { professors, courses, level, setLevel } = props
+    const { professors, courses, setLevel } = props;
 
     const handleChangeLevel = (event) => {
-        const { value } = event.target
-        console.log('value: ' + value)
-        setLevel(value)
+        const { value } = event.target;
+        setLevel(value);
     }
-    console.log('level: ' + level)
 
     return(
         <>
@@ -22,22 +20,23 @@ const FormAssignationCourseToProfessor = (props) => {
                                     Niveles
                                 </Typography><br/><br/>
                                 <FormControl fullWidth>
-                                    <InputLabel id="labelProfessors">Niveles</InputLabel>
+                                    <InputLabel id="labelLevels">Niveles</InputLabel>
                                     <Select
                                         fullWidth
-                                        labelId='labelProfessors'
-                                        name='idProfessor'
-                                        id='idProfessor'
+                                        labelId='labelLevels'
+                                        name='idLevel'
+                                        id='idLevel'
                                         label='Nivel'
                                         onChange={handleChangeLevel}
                                     >
                                         <MenuItem disabled selected>Seleccione el nivel</MenuItem>                                        
-                                        <MenuItem value="Primaria/Preparatoria">Primaria/Preparatoria</MenuItem>                                        
-                                        <MenuItem value="EGB" >Educación General Básica</MenuItem>                                        
+                                        <MenuItem value="Primaria_Preparatoria">Primaria/Preparatoria</MenuItem>                                        
+                                        <MenuItem value="EGB">Educación General Básica</MenuItem>                                        
                                     </Select>
                                 </FormControl>
                             </Card>
                         </Grid>
+                        
                         <Grid item xs={4} sx={{ marginLeft: '17%'}}>
                             <Card sx={{borderRadius: '20px', width: '85%', p: 3, boxShadow: '1px 1px 5px #333'}}>
                                 <Typography variant="h3" gutterBottom component="div">

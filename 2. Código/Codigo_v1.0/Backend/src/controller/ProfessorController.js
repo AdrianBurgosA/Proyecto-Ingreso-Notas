@@ -66,7 +66,7 @@ router.get("/professors/:id", (req, res) => {
 });
 
 //get a professor by level
-router.get("/professors/:level",(req,res) => {
+router.get("/professorsByLevel/:level",(req,res) => {
     const { level } = req.params;
     Professor.find({level: level})
         .then((data) => res.json(data))

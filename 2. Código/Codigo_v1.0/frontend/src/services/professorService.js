@@ -66,10 +66,10 @@ export async function getProfessorById(professorId){
 export async function getProfessorsByLevel(level){
     try{
         const response = await axios({
-            url: `${baseUrl}/professors/${level}`,
+            url: `${baseUrl}/professorsByLevel/${level}`,
             method: 'GET',
         })
-        console.log('level service : '+ level)
+        console.log('level service : '+ level);
         return response;
     }catch(error){
         console.log(error)

@@ -42,7 +42,7 @@ const AssignationCourseToProfessor = () => {
         <>
             <NavbarAdmin/><br/><br/>
             <center>
-                <Assignation professors={professors} courses={courses} level={level} setLevel={setLevel}/>
+                <Assignation professors={professors} courses={courses} setLevel={setLevel}/>
             </center>
         </>
     )
