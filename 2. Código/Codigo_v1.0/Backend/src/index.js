@@ -7,6 +7,7 @@ const Subject = require("./controller/SubjectController");
 const Professor = require("./controller/ProfessorController");
 const Student = require("./controller/StudentController");
 const Grades = require("./controller/GradesController");
+const Users = require("./controller/UserController");
 
 const app = express();
 const port = 3001;
@@ -22,6 +23,7 @@ app.use(Subject);
 app.use(Professor);
 app.use(Student);
 app.use(Grades);
+app.use(Users);
 
 //routes
 app.get('/', (req,res) =>{
