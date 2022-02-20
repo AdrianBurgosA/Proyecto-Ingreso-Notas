@@ -23,7 +23,7 @@ const ImportData = () => {
         <>
             <NavbarAdmin />
             <br />
-            <ImportDataComponent handleSubmit = {handleSubmit} />
+            <ImportDataComponent handleSubmit = {handleSubmit} title="Importar Profesores"/>
         </> 
     );
 

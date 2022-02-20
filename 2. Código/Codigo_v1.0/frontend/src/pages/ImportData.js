@@ -4,6 +4,8 @@ import ImportDataComponent from '../components/ImportData';
 import {saveSubject} from '../services/subjectService';
 import {saveCourse} from '../services/courseService';
 import {useEffect} from 'react';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 
 const cookies = new Cookies();
 
@@ -26,12 +28,16 @@ const ImportData = () => {
     return (
         <>
             <NavbarAdmin />
-            <br />
-            Importar cursos
-            <ImportDataComponent handleSubmit = {handleSubmitCourse} />
-            <br />
-            Importar materias
-            <ImportDataComponent handleSubmit = {handleSubmitSubject} />
+            <Box sx={{ width: '100%', marginLeft: '15%'}}>
+                <Grid container>
+                    <Grid item xs={4}>
+                        <ImportDataComponent handleSubmit = {handleSubmitCourse} title="Importar cursos"/>
+                    </Grid>
+                    <Grid item xs={4}>
+                        <ImportDataComponent handleSubmit = {handleSubmitSubject} title="Importar materias" />
+                    </Grid>
+                </Grid>
+            </Box>
         </> 
     );
 
