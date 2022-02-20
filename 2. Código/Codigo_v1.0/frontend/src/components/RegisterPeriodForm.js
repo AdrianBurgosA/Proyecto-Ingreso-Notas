@@ -2,15 +2,22 @@ import React,{useState} from 'react'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import Typography from '@mui/material/Typography';
 
-const RegisterPeriodForm = () => {
+const RegisterPeriodForm = (props) => {
+    const {handleSubmit} = props
+    
     const [ period, setPeriod ] = useState({
         name: '',
         startDate: new Date(),
         endDate: new Date()
     })
+
+
+    const handleSubmitInternal = (e) => {
+        e.preventDefault();
+        handleSubmit(period, setPeriod)
+    };
 
     return(
         <>
@@ -30,6 +37,8 @@ const RegisterPeriodForm = () => {
                         label="Fecha de comienzo"
                         type="date"
                         defaultValue="2022-05-24"
+                        value={period.startDate}
+                        onChange= {(event) => setPeriod({...period,startDate: event.target.value})}
                         sx={{ width: 220 }}
                         InputLabelProps={{
                         shrink: true,
@@ -40,6 +49,8 @@ const RegisterPeriodForm = () => {
                         label="Fecha de cierre"
                         type="date"
                         defaultValue="2023-05-24"
+                        value={period.endDate}
+                        onChange= {(event) => setPeriod({...period,endDate: event.target.value})}
                         sx={{ width: 220 }}
                         InputLabelProps={{
                         shrink: true,
@@ -53,7 +64,8 @@ const RegisterPeriodForm = () => {
                             sx={{
                                 boxShadow: '1px 1px 5px #333',
                                 background: 'linear-gradient(to right, #4d83b8, #4d83b8)',
-                            }}        
+                            }}    
+                            onClick={handleSubmitInternal}    
                         >
                             Registrar
                         </Button><br/>
