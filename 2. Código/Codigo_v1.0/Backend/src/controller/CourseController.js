@@ -6,13 +6,15 @@ const Course = require("../model/Course");
 router.post("/courses", (req, res) => {
     let request = req.body;
 
-    const level = request.Nivel + "";
+    const number = request.Numero + "";
     const parallel = request.Paralelo + "";
+    const level = request.Nivel + "";
     
     let course = new Course(
         {
-            "level": level,
+            "number": number,
             "parallel": parallel,
+            "level": level,
             "idSchoolYear": ""
         }
     );
@@ -52,8 +54,8 @@ const { id } = req.params;
 //update a course
 router.put("/courses/:id", (req, res) => {
 const { id } = req.params;
-const {level, parallel, idSchoolYear} = req.body;
-    Course.updateOne({_id: id},{$set: {level, parallel, idSchoolYear}})
+const {number, parallel, level, idSchoolYear} = req.body;
+    Course.updateOne({_id: id},{$set: {number, parallel, level, idSchoolYear}})
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });

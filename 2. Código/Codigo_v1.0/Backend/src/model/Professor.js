@@ -26,6 +26,10 @@ const professorSchema = mongoose.Schema({
         type: 'number',
         required: true
     },
+    level:{
+        type: 'string',
+        required: true
+    },
     email:{
         type: 'string',
         required: true

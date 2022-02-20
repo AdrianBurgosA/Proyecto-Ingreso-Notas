@@ -11,6 +11,7 @@ router.post("/professors", (req, res) => {
     const bornYear = request.FechaNacimiento + "";
     const idCard = request.CI + "";
     const specialization = request.Especializacion + "";
+    const level = request.Nivel + "";
     const email = request.Correo + "";
     const user = request.Usuario + "";
     const password = request.Contraseña + "";
@@ -23,6 +24,7 @@ router.post("/professors", (req, res) => {
             "idCard": idCard,
             "specialization": specialization,
             "disponibility": request.Disponibilidad,
+            "level": level,
             "email": email,
             "user": user,
             "password": password,

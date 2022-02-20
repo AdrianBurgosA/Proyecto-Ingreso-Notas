@@ -2,11 +2,15 @@ const mongoose = require("mongoose");
 
 const courseSchema = mongoose.Schema({
   
-    level:{
+    number:{
         type: 'string',
         required: true
     },
     parallel:{
+        type: 'string',
+        required: true
+    },
+    level:{
         type: 'string',
         required: true
     },
