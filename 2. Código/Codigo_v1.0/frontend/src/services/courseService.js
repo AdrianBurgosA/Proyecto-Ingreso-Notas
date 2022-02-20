@@ -16,7 +16,6 @@ export async function saveCourse(courseData){
     }
 };
 
-<<<<<<< HEAD
 export async function getCourses(){
     try{
         const response = await axios({
@@ -24,10 +23,12 @@ export async function getCourses(){
             method: 'GET',
         })
         return response;
+        
     }catch(error){
         console.log(error);
     }
-=======
+}
+
 export async function getCoursesWithoutSchoolYear(){
     try{
         const response = await axios({
@@ -72,5 +73,4 @@ export async function updateCourse(courseData, setCourseData){
     
     setCourseData([]);
     
->>>>>>> 51d4e4a74aef6bd5c56c6ecc061ba2377b2ef94a
 };
