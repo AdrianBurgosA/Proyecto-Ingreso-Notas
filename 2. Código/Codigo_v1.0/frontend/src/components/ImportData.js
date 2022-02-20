@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 const cookies = new Cookies();
 
 const ImportData = (props) => {
-    const {title, handleSubmit} = props
+    const {title, handleSubmit, values, setValues} = props;
 
     const readExcel = (file) => {
         const promise = new Promise((resolve, reject) => {
@@ -29,10 +29,14 @@ const ImportData = (props) => {
     
         promise.then((d) => {
             console.log(d);
-            d.map(data => {
-                handleSubmit(data);
-            });
+            setValues(d);
             
+        });
+    };
+
+    const handleImport = () => {
+        values.map(data => {
+            handleSubmit(data);
         });
     };
 
@@ -48,14 +52,16 @@ const ImportData = (props) => {
                         const file = e.target.files[0];
                         readExcel(file);
                     }}
-                /><br/><br/>
+                />
+                <br/><br/>
                 <Button
                     variant="contained"
                     size = "large"
                     type="submit"
+                    onClick={handleImport}
                     sx={{
                         boxShadow: '1px 1px 5px #333',
-                        background: 'linear-gradient(to right, #4d83b8, #4d83b8)',
+                        background: 'linear-gradient(to right, #4d83b8, #4d83b8)'
                     }}        
                 >
                     Importar

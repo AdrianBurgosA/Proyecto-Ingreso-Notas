@@ -2,11 +2,13 @@ import Cookies from 'universal-cookie/es6';
 import NavbarAdmin from '../components/NavbarAdmin';
 import ImportDataComponent from '../components/ImportData';
 import {saveProfessor, saveUser} from '../services/professorService';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 
 const cookies = new Cookies();
 
 const ImportData = () => {
+
+    const [professorValues, setProfessorValues] = useState([]);
 
     const handleSubmit = (professorData) => {
         saveProfessor(professorData);
@@ -23,7 +25,7 @@ const ImportData = () => {
         <>
             <NavbarAdmin />
             <br />
-            <ImportDataComponent handleSubmit = {handleSubmit} title="Importar Profesores"/>
+            <ImportDataComponent handleSubmit = {handleSubmit} title="Importar Profesores" values={professorValues} serValues={setProfessorValues} />
         </> 
     );
 

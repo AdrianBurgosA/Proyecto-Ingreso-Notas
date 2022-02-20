@@ -3,13 +3,17 @@ import NavbarAdmin from '../components/NavbarAdmin';
 import ImportDataComponent from '../components/ImportData';
 import {saveSubject} from '../services/subjectService';
 import {saveCourse} from '../services/courseService';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 
 const cookies = new Cookies();
 
 const ImportData = () => {
+
+    const [courseValues, setCourseValues] = useState([]);
+
+    const [subjectValues, setSubjectValues] = useState([]);
 
     const handleSubmitSubject = (subjectData) => {
         saveSubject(subjectData);
@@ -31,10 +35,10 @@ const ImportData = () => {
             <Box sx={{ width: '100%', marginLeft: '15%'}}>
                 <Grid container>
                     <Grid item xs={4}>
-                        <ImportDataComponent handleSubmit = {handleSubmitCourse} title="Importar cursos"/>
+                        <ImportDataComponent handleSubmit = {handleSubmitCourse} title="Importar cursos" values={courseValues} setValues={setCourseValues} />
                     </Grid>
                     <Grid item xs={4}>
-                        <ImportDataComponent handleSubmit = {handleSubmitSubject} title="Importar materias" />
+                        <ImportDataComponent handleSubmit = {handleSubmitSubject} title="Importar materias" values={subjectValues} setValues={setSubjectValues} />
                     </Grid>
                 </Grid>
             </Box>

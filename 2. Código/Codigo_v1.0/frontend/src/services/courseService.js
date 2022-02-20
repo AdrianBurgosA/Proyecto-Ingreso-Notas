@@ -10,7 +10,7 @@ export async function saveCourse(courseData){
             method: 'POST',
             data: courseData
         });
-        console.log(courseData)
+        
     }catch(error){
         console.log(error);
     }
