@@ -4,11 +4,33 @@ const Subject = require("../model/Subject");
 
 //create Subject
 router.post("/subjects", (req, res) => {
-    const subject = Subject(req.body);
-    subject
-      .save()
-      .then((data) => res.json(data))
-      .catch((error) => res.json({ message: error }));
+    let request = req.body;
+
+    const name = request.Nombre + "";
+    const level = request.Nivel + "";
+    
+    let subject = new Subject(
+        {
+            "name": name,
+            "level": level
+        }
+    );
+
+    subject.save((err, requestDB) => {
+        if (err) {
+            res.json({
+                result: false,
+                message: "No se pudieron registrar los datos de las materias.",
+                err
+            });
+        }else {
+            res.json({
+                result: true,
+                message: "Se realizo el ingreso de las materias con éxito.",
+                requestDB
+            });
+        }
+    });
 });
   
 //get all Subjects

@@ -4,11 +4,34 @@ const Course = require("../model/Course");
 
 //create course
 router.post("/courses", (req, res) => {
-    const course = Course(req.body);
-    course
-      .save()
-      .then((data) => res.json(data))
-      .catch((error) => res.json({ message: error }));
+    let request = req.body;
+
+    const level = request.Nivel + "";
+    const parallel = request.Paralelo + "";
+    
+    let course = new Course(
+        {
+            "level": level,
+            "parallel": parallel,
+            "idSchoolYear": ""
+        }
+    );
+
+    course.save((err, requestDB) => {
+        if (err) {
+            res.json({
+                result: false,
+                message: "No se pudieron registrar los datos de los cursos.",
+                err
+            });
+        }else {
+            res.json({
+                result: true,
+                message: "Se realizo el ingreso de los cursos con éxito.",
+                requestDB
+            });
+        }
+    });
 });
   
 //get all courses

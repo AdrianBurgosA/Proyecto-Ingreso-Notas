@@ -9,7 +9,7 @@ const Student = require("./controller/StudentController");
 const Grades = require("./controller/GradesController");
 
 const app = express();
-const port = process.env.PORT || 3001;
+const port = 3001;
 var cors = require('cors');
 app.use(cors());
 
