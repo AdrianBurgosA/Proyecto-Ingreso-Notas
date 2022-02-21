@@ -1,4 +1,3 @@
-import logo from '../img/logoWellnessGroup.png';
 import * as React from 'react';
 import '../App.css';
 import '../index.css';
@@ -12,9 +11,6 @@ import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
-
-
-
 const HomeScreen = () => {
 
     return (
@@ -22,8 +18,8 @@ const HomeScreen = () => {
             <br/>
             <br/><br/><br/><br/><br/><br/>
             
-            <h1 class = "titleHome">Bienvenidos</h1>
-            <h2 class = "subtitleHome">A "The Wellness Group"</h2>
+            <h1 class = "titleHome">Unidad Educativa</h1>
+            <h2 class = "subtitleHome">Liceo "La Siembra"</h2>
         </>
         
 

@@ -74,7 +74,7 @@ const NavbarAdmin = () => {
         <AppBar position="static" style={{ backgroundColor: '#4d83b8' }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <Link to="/homeScreenSuperAdmin"><div class="logoNav"></div></Link>
+                    <Link to="/homeScreenAdmin"><div class="logoNav"></div></Link>
 
                     <Box sx={{ display: { xs: 'none', md: 'flex', marginRight:'auto'} }}>
                         <Tooltip title="Gestionar usuarios">

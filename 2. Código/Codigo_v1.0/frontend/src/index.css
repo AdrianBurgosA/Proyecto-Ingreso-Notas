@@ -18,3 +18,27 @@ code {
   justify-content: center;
   margin: 0 auto;
 }
+
+.titleHome{
+  font-size: 11vh;
+  margin: 0;
+  margin-left: 5%;
+  margin-top: 1%;
+  color: rgb(77, 131, 184);
+  /* color: #fff; */
+}
+.subtitleHome{
+  font-size: 8vh;
+  margin: 0;
+  margin-left: 5%;
+  color: #E9C46A;
+  /* color: rgb(252, 134, 0); */
+}
+
+.logoNav{
+  background-image: url(img/logo.png);
+  width: 80px;
+  height: 80px;
+  background-size: cover;
+  margin-right: 15px;
+}
