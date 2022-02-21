@@ -5,10 +5,10 @@ import {Box, Button, MenuItem, Select, FormControl, InputLabel, Grid, Card} from
 const RegisterStudentForm = (props) => {
 
     const handleUpdate = props.handleUpdate;
-    const professors = props.professors;
-    const subjects = props.subjects;
-    const professor = props.professor;
-    const setProfessor = props.setProfessor;
+    const students = props.students;
+    const courses = props.courses;
+    const student = props.student;
+    const setStudent = props.setStudent;
     const setId = props.setId;
 
     const handleChangeId = (event) => {
@@ -17,14 +17,14 @@ const RegisterStudentForm = (props) => {
         setId(value);
     };
 
-    const handleChangeProfessor = (event) => {
+    const handleChangeStudent = (event) => {
         const { name, value } = event.target;
-        setProfessor({ ...professor, [name]: value});
+        setStudent({ ...student, [name]: value});
     };
 
     const handleUpdateInternal = (e) => {
         e.preventDefault();
-        handleUpdate(professor, setProfessor);
+        handleUpdate(student, setStudent);
     };
 
     return(
@@ -35,22 +35,25 @@ const RegisterStudentForm = (props) => {
                         <Grid item xs={4}>
                             <Card sx={{borderRadius: '20px', width: '85%', p: 3, boxShadow: '1px 1px 5px #333', marginTop: '30%'}}>
                                 <Typography variant="h3" gutterBottom component="div">
-                                    Docentes
+                                    Estudiantes
                                 </Typography><br/><br/>
+
                                 <FormControl fullWidth>
-                                    <InputLabel id="labelProfessors">Profesores</InputLabel>
+                                    <InputLabel id="labelStudents">Estudiantes</InputLabel>
                                     <Select
                                         fullWidth
-                                        labelId='labelProfessors'
-                                        name='idProfessor'
-                                        id='idProfessor'
-                                        label='Docente'
+                                        labelId='labelStudents'
+                                        name='idStudent'
+                                        id='idStudent'
+                                        label='Estudiante'
                                         onChange={handleChangeId}
                                     >
-                                        <MenuItem disabled selected>Seleccione un profesor</MenuItem>
+                                        
+                                        <MenuItem disabled selected>Seleccione un estudiante</MenuItem>
                                         {
-                                            professors.map(item => (
+                                            students.map(item => (
                                                 <MenuItem value={item._id}>{item.name} {item.lastName}</MenuItem>
+                                                
                                             ))
                                         }
                                         
@@ -58,28 +61,26 @@ const RegisterStudentForm = (props) => {
                                 </FormControl>
                             </Card>
                         </Grid>
-                        <Grid item xs={4}>
-                        <Card sx={{borderRadius: '20px', width: '85%', p: 3, boxShadow: '1px 1px 5px #333', marginTop: '30%'}}>
-                                <Typography variant="h3" gutterBottom component="div">
-                                    Materias
-                                </Typography><br/><br/>
 
+                        <Grid item xs={4}>
+                            <Card sx={{borderRadius: '20px', width: '85%', p: 3, boxShadow: '1px 1px 5px #333', marginTop: '30%'}}>
+                                <Typography variant="h3" gutterBottom component="div">
+                                    Cursos
+                                </Typography><br/><br/>
                                 <FormControl fullWidth>
-                                    <InputLabel id="labelSubjects">Materias</InputLabel>
+                                    <InputLabel id="labelCourses">Cursos</InputLabel>
                                     <Select
                                         fullWidth
-                                        labelId='labelSubjects'
-                                        name='idSubject'
-                                        id='idSubject'
-                                        label='Docente'
-                                        onChange={handleChangeProfessor}
+                                        labelId='labelCourses'
+                                        name='idCourse'
+                                        id='idCourse'
+                                        label='Curso'
+                                        onChange={handleChangeStudent}
                                     >
-                                        
-                                        <MenuItem disabled selected>Seleccione una materia</MenuItem>
+                                        <MenuItem disabled selected>Seleccione un curso</MenuItem>
                                         {
-                                            subjects.map(item => (
-                                                <MenuItem value={item._id}>{item.name}</MenuItem>
-                                                
+                                            courses.map(item => (
+                                                <MenuItem value={item._id}>{item.number} {item.parallel}</MenuItem>
                                             ))
                                         }
                                         

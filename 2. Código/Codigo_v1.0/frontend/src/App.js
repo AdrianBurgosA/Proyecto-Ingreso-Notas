@@ -8,6 +8,7 @@ import RegisterPeriod from './pages/CreatePeriod'
 import AssignationCourseToSchoolYear from './pages/AssignationCourseToSchoolYear';
 import AssignationSubjectoToProfessor from './pages/AssignationSubjectToProfessor';
 import AssignationCourseToProfessor from './pages/AssignationCourseToProfessor';
+import AssignationStudentToCourse from './pages/AssignationStudentToCourse';
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/coursesToSchoolYear" element={<AssignationCourseToSchoolYear/>}/>
         <Route path="/subjectToProfessor" element={<AssignationSubjectoToProfessor/>}/>
         <Route path="/courseToProfessor" element={<AssignationCourseToProfessor/>}/>
+        <Route path="/studentToCourse" element={<AssignationStudentToCourse/>}/>
       </Routes>
     </BrowserRouter>
   )

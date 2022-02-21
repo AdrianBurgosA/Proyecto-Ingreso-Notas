@@ -20,8 +20,27 @@ router.get("/students", (req, res) => {
 
 //get a Student
 router.get("/students/:id", (req, res) => {
-const { id } = req.params;
+    const { id } = req.params;
     Student.findById(id)
+        .then((data) => res.json(data))
+        .catch((error) => res.json({ message: error }));
+});
+
+//get Students by course
+router.get("/studentsByCourse/:idCourse", (req, res) => {
+    const { idCourse } = req.params;
+    Student.find({
+        idCourse: idCourse
+    })
+        .then((data) => res.json(data))
+        .catch((error) => res.json({ message: error }));
+});
+
+//get students without course
+router.get("/studentsWithoutCourse", (req, res) => {
+    Student.find({
+        idCourse: ''
+    })
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });
