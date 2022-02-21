@@ -2,13 +2,13 @@ import React from 'react';
 import Typography from '@mui/material/Typography';
 import {Box, Button, MenuItem, Select, FormControl, InputLabel, Grid, Card} from "@mui/material";
 
-const RegisterStudentForm = (props) => {
+const FormAssignationSubjectToProfessor = (props) => {
 
     const handleUpdate = props.handleUpdate;
-    const students = props.students;
-    const courses = props.courses;
-    const student = props.student;
-    const setStudent = props.setStudent;
+    const professors = props.professors;
+    const subjects = props.subjects;
+    const professor = props.professor;
+    const setProfessor = props.setProfessor;
     const setId = props.setId;
 
     const handleChangeId = (event) => {
@@ -17,14 +17,14 @@ const RegisterStudentForm = (props) => {
         setId(value);
     };
 
-    const handleChangeStudent = (event) => {
+    const handleChangeProfessor = (event) => {
         const { name, value } = event.target;
-        setStudent({ ...student, [name]: value});
+        setProfessor({ ...professor, [name]: value});
     };
 
     const handleUpdateInternal = (e) => {
         e.preventDefault();
-        handleUpdate(student, setStudent);
+        handleUpdate(professor, setProfessor);
     };
 
     return(
@@ -35,25 +35,22 @@ const RegisterStudentForm = (props) => {
                         <Grid item xs={4}>
                             <Card sx={{borderRadius: '20px', width: '85%', p: 3, boxShadow: '1px 1px 5px #333', marginTop: '30%'}}>
                                 <Typography variant="h3" gutterBottom component="div">
-                                    Estudiantes
+                                    Docentes
                                 </Typography><br/><br/>
-
                                 <FormControl fullWidth>
-                                    <InputLabel id="labelStudents">Estudiantes</InputLabel>
+                                    <InputLabel id="labelProfessors">Profesores</InputLabel>
                                     <Select
                                         fullWidth
-                                        labelId='labelStudents'
-                                        name='idStudent'
-                                        id='idStudent'
-                                        label='Estudiante'
+                                        labelId='labelProfessors'
+                                        name='idProfessor'
+                                        id='idProfessor'
+                                        label='Docente'
                                         onChange={handleChangeId}
                                     >
-                                        
-                                        <MenuItem disabled selected>Seleccione un estudiante</MenuItem>
+                                        <MenuItem disabled selected>Seleccione un profesor</MenuItem>
                                         {
-                                            students.map(item => (
+                                            professors.map(item => (
                                                 <MenuItem value={item._id}>{item.name} {item.lastName}</MenuItem>
-                                                
                                             ))
                                         }
                                         
@@ -61,26 +58,27 @@ const RegisterStudentForm = (props) => {
                                 </FormControl>
                             </Card>
                         </Grid>
-
                         <Grid item xs={4}>
-                            <Card sx={{borderRadius: '20px', width: '85%', p: 3, boxShadow: '1px 1px 5px #333', marginTop: '30%'}}>
+                        <Card sx={{borderRadius: '20px', width: '85%', p: 3, boxShadow: '1px 1px 5px #333', marginTop: '30%'}}>
                                 <Typography variant="h3" gutterBottom component="div">
-                                    Cursos
+                                    Materias
                                 </Typography><br/><br/>
+
                                 <FormControl fullWidth>
-                                    <InputLabel id="labelCourses">Cursos</InputLabel>
+                                    <InputLabel id="labelSubjects">Materias</InputLabel>
                                     <Select
                                         fullWidth
-                                        labelId='labelCourses'
-                                        name='idCourse'
-                                        id='idCourse'
-                                        label='Curso'
-                                        onChange={handleChangeStudent}
+                                        labelId='labelSubjects'
+                                        name='idSubject'
+                                        id='idSubject'
+                                        label='Docente'
+                                        onChange={handleChangeProfessor}
                                     >
-                                        <MenuItem disabled selected>Seleccione un curso</MenuItem>
+                                        <MenuItem disabled selected>Seleccione una materia</MenuItem>
                                         {
-                                            courses.map(item => (
-                                                <MenuItem value={item._id}>{item.number} {item.parallel}</MenuItem>
+                                            subjects.map(item => (
+                                                <MenuItem value={item._id}>{item.name}</MenuItem>
+                                                
                                             ))
                                         }
                                         
@@ -108,4 +106,4 @@ const RegisterStudentForm = (props) => {
         </>
     );
 }
-export default RegisterStudentForm;
+export default FormAssignationSubjectToProfessor;

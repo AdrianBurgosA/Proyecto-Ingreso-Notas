@@ -77,7 +77,7 @@ export async function getCoursesWithCapacity(){
                 });
                 const numberStudents = response2.data.length;
 
-                if (numberStudents < 15) {
+                if (numberStudents < max) {
                     courseWithCapacity.push(courses[i]);
                 };
 

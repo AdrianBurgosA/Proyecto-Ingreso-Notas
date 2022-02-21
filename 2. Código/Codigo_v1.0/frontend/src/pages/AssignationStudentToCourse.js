@@ -1,4 +1,4 @@
-import Assignation from '../components/FormAssignationSubjectToProfessor';
+import Assignation from '../components/FormAssignationStudentToCourse';
 import React from 'react';
 import NavbarAdmin from '../components/NavbarAdmin';
 import Cookies from 'universal-cookie/es6';
@@ -8,7 +8,7 @@ import {getCoursesWithCapacity} from '../services/courseService';
 
 const cookies = new Cookies();
 
-const AssignationSubjectoToProfessor = () => {
+const AssignationStudentToCourse = () => {
 
     const [students, setStudents] = useState([]);
     const [courses, setCourses] = useState([]);
@@ -75,4 +75,4 @@ const AssignationSubjectoToProfessor = () => {
     );
 };
 
-export default AssignationSubjectoToProfessor;
+export default AssignationStudentToCourse;
