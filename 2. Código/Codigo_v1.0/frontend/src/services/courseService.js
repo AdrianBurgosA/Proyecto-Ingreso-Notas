@@ -57,6 +57,7 @@ export async function getCourseById(courseId){
     }
 };
 
+<<<<<<< HEAD
 export async function getCourseByNevel(level){
     try{
         const response = await axios({
@@ -68,6 +69,44 @@ export async function getCourseByNevel(level){
         console.log(error)
     }
 }
+=======
+export async function getCoursesWithCapacity(){
+    const max = 15;
+
+    try{
+        const response = await axios({
+            url: `${baseUrl}/courses`,
+            method: 'GET',
+        });
+        const courses = response.data;
+        const courseWithCapacity = [];
+
+        for (var i=0; i<courses.length; i++) {
+            
+            try{
+                const response2 = await axios({
+                    url: `${baseUrl}/studentsByCourse/${courses[i]._id}`,
+                    method: 'GET'
+                });
+                const numberStudents = response2.data.length;
+
+                if (numberStudents < max) {
+                    courseWithCapacity.push(courses[i]);
+                };
+
+            }catch(e){
+                console.log(e);
+            };
+
+        };
+        response.data = courseWithCapacity;
+        return response;
+
+    }catch(error){
+      console.log(error);
+    };
+};
+>>>>>>> 833581d8d08bc706f66b16489063674648a0e6df
 
 export async function updateCourse(courseData, setCourseData){
     console.log(courseData);

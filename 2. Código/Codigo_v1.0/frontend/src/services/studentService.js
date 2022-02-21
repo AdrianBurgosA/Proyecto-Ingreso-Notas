@@ -49,3 +49,62 @@ export async function saveUser(studentData){
         console.log(error);
     }
 };
+
+export async function getNumberStudentsPerCourse(idCourse){
+    try{
+        const response = await axios({
+            url: `${baseUrl}/studentsByCourse/${idCourse}`,
+            method: 'GET',
+        })
+        const numStudents = response.data.length;
+
+        return numStudents;
+  
+    }catch(error){
+      console.log(error)
+    }
+};
+
+export async function getStudentsWithoutCourse(){
+    try{
+        const response = await axios({
+            url: `${baseUrl}/studentsWithoutCourse`,
+            method: 'GET',
+        })
+
+        return response;
+  
+    }catch(error){
+      console.log(error)
+    }
+};
+
+export async function getStudentById(studentId){
+    try{
+        const response = await axios({
+            url: `${baseUrl}/students/${studentId}`,
+            method: 'GET',
+        })
+
+        return response;
+  
+    }catch(error){
+      console.log(error)
+    }
+};
+
+export async function updateStudent(studentData, setStudentData){
+    const response = await axios.put(`${baseUrl}/students/${studentData._id}`, {
+        idCourse: studentData.idCourse
+    })
+    .then(response => {
+        window.alert('Asignación realizada con éxito');
+      
+    })
+    .catch(error => {
+      console.log(error);
+    })
+    
+    setStudentData([]);
+    window.location.reload();
+};
