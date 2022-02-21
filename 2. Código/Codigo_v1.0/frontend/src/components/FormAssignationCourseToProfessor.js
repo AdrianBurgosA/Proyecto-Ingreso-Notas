@@ -3,7 +3,6 @@ import {Box, Button, MenuItem, Select, FormControl, InputLabel, Grid, Card, Typo
 
 const FormAssignationCourseToProfessor = (props) => {
     const { professors, courses, setLevel, id, setId, setProfessor, professor, handleUpdate } = props;
-    const [ coursesArray, setArray ] = useState([])
 
     const handleChangeLevel = (event) => {
         const { value } = event.target;
@@ -15,27 +14,13 @@ const FormAssignationCourseToProfessor = (props) => {
         setId(value);
     };
     
-    const validateProfessors = () => {
-        professors.forEach(p => {
-            if(p.disponibility == 0){
-                if(p.idCourse.length == 1){
-                    professors.splice(p)
-                }
-            }
-        })
-    }
-
-    validateProfessors();
-    
     const handleChangeProfessor = (event) => {
-        const { value } = event.target;
-        professors.forEach(p => {
-            if( p._id === id){
-                setArray(p.idCourse)
-            }
-        })
-        setArray(coursesArray.push(value))
-        setProfessor({...professor, idCourse: coursesArray})
+        const { name, value } = event.target;
+
+        const coursesArray = professor.idCourse;
+        coursesArray.push(value);
+
+        setProfessor({...professor, [name]: coursesArray});
     }
     
     const handleUpdateInternal = (e) => {

@@ -69,8 +69,18 @@ export async function getProfessorsByLevel(level){
             url: `${baseUrl}/professorsByLevel/${level}`,
             method: 'GET',
         })
-        console.log('level service : '+ level);
+        
+        const professors = response.data;
+        const avaliableProfessors = [];
+
+        for (var i=0; i<professors.length; i++) {
+            if ((professors[i].disponibility == 0 && professors[i].idCourse.length == 0) || professors[i].disponibility == 1) {
+                avaliableProfessors.push(professors[i]);
+            }
+        }
+        response.data = avaliableProfessors;
         return response;
+
     }catch(error){
         console.log(error)
     }
@@ -83,7 +93,7 @@ export async function updateProfessor(professorData, setProfessorData){
     })
     .then(response => {
         window.alert('Asignación realizada con éxito');
-      
+        window.location.reload();
     })
     .catch(error => {
       console.log(error);
@@ -98,6 +108,7 @@ export async function updateCoursesProfessor(professorData, setProfessorData){
     .then(response => {
         console.log('Data: ' + professorData)
         window.alert('Asignación realizada con éxito');
+        window.location.reload();
     })
     .catch(error => {
       console.log(error);
