@@ -57,9 +57,20 @@ export async function getCourseById(courseId){
     }
 };
 
+export async function getCourseByNevel(level){
+    try{
+        const response = await axios({
+            url: `${baseUrl}/coursesByLevel/${level}`,
+            method: 'GET',
+        })
+        return response;
+    }catch(error){
+        console.log(error)
+    }
+}
+
 export async function updateCourse(courseData, setCourseData){
     console.log(courseData);
-
     const response = await axios.put(`${baseUrl}/courses/${courseData._id}`, {
         idSchoolYear: courseData.idSchoolYear
     })

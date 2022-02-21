@@ -88,7 +88,19 @@ export async function updateProfessor(professorData, setProfessorData){
     .catch(error => {
       console.log(error);
     })
-    
     setProfessorData([]);
-    
+};
+
+export async function updateCoursesProfessor(professorData, setProfessorData){
+    const response = await axios.put(`${baseUrl}/professorsCourses/${professorData._id}`, {
+        idCourse: professorData.idCourse
+    })
+    .then(response => {
+        console.log('Data: ' + professorData)
+        window.alert('Asignación realizada con éxito');
+    })
+    .catch(error => {
+      console.log(error);
+    })
+    setProfessorData([]);
 };

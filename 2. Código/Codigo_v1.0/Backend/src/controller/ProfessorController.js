@@ -93,6 +93,15 @@ const {idCourse, idSubject} = req.body;
         .catch((error) => res.json({ message: error }));
 });
 
+//update a Professor
+router.put("/professorsCourses/:id", (req, res) => {
+const { id } = req.params;
+const {idCourse} = req.body;
+    Professor.updateOne({_id: id},{$set: {idCourse}})
+        .then((data) => res.json(data))
+        .catch((error) => res.json({ message: error }));
+});
+
 //delete a Professor
 router.delete("/professors/:id", (req, res) => {
     const { id } = req.params;

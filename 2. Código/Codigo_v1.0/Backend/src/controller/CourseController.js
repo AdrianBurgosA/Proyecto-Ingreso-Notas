@@ -51,6 +51,14 @@ router.get("/courses/:id", (req, res) => {
         .catch((error) => res.json({ message: error }));
 });
 
+//get a course by level
+router.get("/coursesByLevel/:level",(req,res) => {
+    const { level } = req.params;
+    Course.find({level: level})
+        .then((data) => res.json(data))
+        .catch((error) => res.json({message: error}))
+});
+
 //get courses without school year
 router.get("/coursesWithoutSchoolYear", (req, res) => {
     Course.find({

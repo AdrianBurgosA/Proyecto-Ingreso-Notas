@@ -1,17 +1,51 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {Box, Button, MenuItem, Select, FormControl, InputLabel, Grid, Card, Typography} from "@mui/material";
 
 const FormAssignationCourseToProfessor = (props) => {
-    const { professors, courses, setLevel } = props;
+    const { professors, courses, setLevel, id, setId, setProfessor, professor, handleUpdate } = props;
+    const [ coursesArray, setArray ] = useState([])
 
     const handleChangeLevel = (event) => {
         const { value } = event.target;
         setLevel(value);
     }
+    
+    const handleChangeId = (event) => {
+        const { value } = event.target;
+        setId(value);
+    };
+    
+    const validateProfessors = () => {
+        professors.forEach(p => {
+            if(p.disponibility == 0){
+                if(p.idCourse.length == 1){
+                    professors.splice(p)
+                }
+            }
+        })
+    }
+
+    validateProfessors();
+    
+    const handleChangeProfessor = (event) => {
+        const { value } = event.target;
+        professors.forEach(p => {
+            if( p._id === id){
+                setArray(p.idCourse)
+            }
+        })
+        setArray(coursesArray.push(value))
+        setProfessor({...professor, idCourse: coursesArray})
+    }
+    
+    const handleUpdateInternal = (e) => {
+        e.preventDefault();
+        handleUpdate(professor, setProfessor);
+    };
 
     return(
         <>
-            <form>
+            <form onSubmit={handleUpdateInternal}>
                 <Box sx={{ width: '100%'}}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
@@ -50,6 +84,7 @@ const FormAssignationCourseToProfessor = (props) => {
                                         name='idProfessor'
                                         id='idProfessor'
                                         label='Docente'
+                                        onChange={handleChangeId}
                                     >
                                         <MenuItem disabled selected>Seleccione un profesor</MenuItem>
                                         {
@@ -72,9 +107,10 @@ const FormAssignationCourseToProfessor = (props) => {
                                     <Select
                                         fullWidth
                                         labelId='labelSubjects'
-                                        name='idSubject'
-                                        id='idSubject'
+                                        name='idCourse'
+                                        id='idCourse'
                                         label='Curso'
+                                        onChange={handleChangeProfessor}
                                     >
                                         <MenuItem disabled selected>Seleccione un curso</MenuItem>
                                         {

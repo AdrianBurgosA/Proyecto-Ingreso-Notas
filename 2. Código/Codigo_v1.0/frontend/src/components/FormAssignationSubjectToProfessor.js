@@ -74,7 +74,6 @@ const RegisterStudentForm = (props) => {
                                         label='Docente'
                                         onChange={handleChangeProfessor}
                                     >
-                                        
                                         <MenuItem disabled selected>Seleccione una materia</MenuItem>
                                         {
                                             subjects.map(item => (

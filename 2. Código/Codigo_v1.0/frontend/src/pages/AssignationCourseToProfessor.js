@@ -2,15 +2,17 @@ import React, {useState, useEffect} from 'react'
 import Assignation from '../components/FormAssignationCourseToProfessor';
 import Cookies from 'universal-cookie/es6';
 import NavbarAdmin from '../components/NavbarAdmin';
-import { getProfessorsByLevel } from '../services/professorService';
-import { getCourses } from '../services/courseService'
+import { getProfessorsByLevel, updateCoursesProfessor } from '../services/professorService';
+import { getCourseByNevel } from '../services/courseService'
 
 const cookies = new Cookies();
 
 const AssignationCourseToProfessor = () => {
     const [ professors, setProfessors ] = useState([]);
     const [ courses, setCourses ] = useState([]);
+    const [ professor, setProfessor ] = useState({})
     const [ level, setLevel ] = useState("");
+    const [ id, setId ] = useState("")
 
     useEffect(() => {
         async function loadProfessors() {
@@ -24,13 +26,13 @@ const AssignationCourseToProfessor = () => {
 
     useEffect(() => {
         async function loadCourses() {
-            const response = await getCourses();
+            const response = await getCourseByNevel(level);
             if (response.status === 200) {
                 setCourses(response.data);
             };
         };
         loadCourses();
-    }, []);
+    }, [level]);
 
     useEffect(() => {
         if (typeof cookies.get('user') === 'undefined' || cookies.get('type', {path: "/"}) !== '0') {
@@ -38,11 +40,16 @@ const AssignationCourseToProfessor = () => {
         }
     });
 
+    const handleUpdate = (professorData, setProfessorData) => {
+        updateCoursesProfessor(professorData, setProfessorData);
+    }
+
     return(
         <>
             <NavbarAdmin/><br/><br/>
             <center>
-                <Assignation professors={professors} courses={courses} setLevel={setLevel}/>
+                <Assignation professors={professors} courses={courses} setLevel={setLevel}
+                id={id} setId={setId} setProfessor = {setProfessor} professor={professor} handleUpdate={handleUpdate}/>
             </center>
         </>
     )
