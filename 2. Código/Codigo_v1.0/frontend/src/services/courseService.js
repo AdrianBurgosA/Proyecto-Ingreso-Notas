@@ -57,7 +57,6 @@ export async function getCourseById(courseId){
     }
 };
 
-<<<<<<< HEAD
 export async function getCourseByNevel(level){
     try{
         const response = await axios({
@@ -69,7 +68,7 @@ export async function getCourseByNevel(level){
         console.log(error)
     }
 }
-=======
+
 export async function getCoursesWithCapacity(){
     const max = 15;
 
@@ -106,7 +105,6 @@ export async function getCoursesWithCapacity(){
       console.log(error);
     };
 };
->>>>>>> 833581d8d08bc706f66b16489063674648a0e6df
 
 export async function updateCourse(courseData, setCourseData){
     console.log(courseData);

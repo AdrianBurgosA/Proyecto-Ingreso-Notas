@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Login from './pages/Login';
+import HomeScreenAdmin from './pages/HomeScreenAdmin';
 import ImportData from './pages/ImportData';
 import ImportProfessors from './pages/ImportProfessors';
 import RegisterStudent from './pages/RegisterStudent'
@@ -14,7 +15,8 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-      <Route path="/" element={<Login />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/homeScreenAdmin" element={<HomeScreenAdmin />} />
         <Route path="/importData" element={<ImportData />} />
         <Route path="/importProfessors" element={<ImportProfessors />} />
         <Route path="/createStudent" element={<RegisterStudent/>}/>

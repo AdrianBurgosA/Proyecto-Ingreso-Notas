@@ -56,7 +56,11 @@ const Login = () => {
   useEffect(() => {
     if (typeof cookies.get('user') !== 'undefined') {
       if (cookies.get('type') === '0') {
-        window.location.href = "./createStudent";
+        window.location.href = "./homeScreenAdmin";
+      }else if(cookies.get('type') === '2') {
+        window.location.href = "./homeScreenProfessor";
+      }else if(cookies.get('type') === '3') {
+        window.location.href = "./homeScreenStudent";
 
       }
     }

@@ -28,7 +28,15 @@ export function checkLogin(loginValues, setLoginValues) {
 
             switch (dataLogin.type) {
                 case 0:
-                    window.location.href = "./createStudent";
+                    window.location.href = "./homeScreenAdmin";
+                    break;
+
+                case 2:
+                    window.location.href = "./homeScreenProfessor";
+                    break;
+
+                case 3:
+                    window.location.href = "./homeScreenStudent";
                     break;
             }
         }else {
