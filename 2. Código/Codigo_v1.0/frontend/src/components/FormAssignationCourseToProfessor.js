@@ -1,8 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {Box, Button, MenuItem, Select, FormControl, InputLabel, Grid, Card, Typography} from "@mui/material";
 
 const FormAssignationCourseToProfessor = (props) => {
-    const { professors, courses, setLevel, id, setId, setProfessor, professor, handleUpdate } = props;
+    const { professors,setCourses, courses, setLevel, id, setId, setProfessor, professor, handleUpdate } = props;
+
+        /*professor.idCourse.forEach(course => {
+            if(courses.includes(course)){
+                setCourses(courses.splice(course))
+            }
+        });*/
 
     const handleChangeLevel = (event) => {
         const { value } = event.target;
