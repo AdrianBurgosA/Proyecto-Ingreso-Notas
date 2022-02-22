@@ -44,17 +44,23 @@ export async function getCoursesWithoutSchoolYear(){
 };
 
 export async function getCourseById(courseId){
+    
     try{
         const response = await axios({
             url: `${baseUrl}/courses/${courseId}`,
             method: 'GET',
         })
-
+        
         return response;
   
     }catch(error){
       console.log(error)
     }
+};
+
+export async function getCoursesById(coursesId){
+    console.log(coursesId)
+    
 };
 
 export async function getCourseByNevel(level){

@@ -63,6 +63,22 @@ export async function getProfessorById(professorId){
     }
 };
 
+
+export async function getProfessorByUsername(professorUsername){
+    try{
+        const response = await axios({
+            url: `${baseUrl}/professorByUsername/${professorUsername}`,
+            method: 'GET',
+        })
+        
+        return response;
+        
+  
+    }catch(error){
+      console.log(error)
+    }
+};
+
 export async function getProfessorsByLevel(level){
     try{
         const response = await axios({
