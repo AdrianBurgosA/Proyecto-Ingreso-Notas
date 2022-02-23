@@ -29,8 +29,8 @@ const { id } = req.params;
 //update a Grades
 router.put("/grades/:id", (req, res) => {
 const { id } = req.params;
-const {name, lastName, bornYear, idCard, specialization, idCourse, idSubject} = req.body;
-    Grades.updateOne({_id: id},{$set: {name, lastName, bornYear, idCard, specialization, idCourse, idSubject}})
+const {grades, idStudent, idProfessor, idSubject, quimester} = req.body;
+    Grades.updateOne({_id: id},{$set: {grades, idStudent, idProfessor, idSubject, quimester}})
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });

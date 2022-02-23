@@ -79,6 +79,21 @@ export async function getStudentsWithoutCourse(){
     }
 };
 
+
+export async function getStudentsByCourse(idCourse){
+    try{
+        const response = await axios({
+            url: `${baseUrl}/studentsByCourse/${idCourse}`,
+            method: 'GET',
+        })
+
+        return response;
+  
+    }catch(error){
+      console.log(error)
+    }
+};
+
 export async function getStudentById(studentId){
     try{
         const response = await axios({

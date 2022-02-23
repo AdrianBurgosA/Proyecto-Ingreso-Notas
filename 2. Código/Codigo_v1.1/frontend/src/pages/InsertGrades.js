@@ -5,6 +5,7 @@ import {saveGrades} from '../services/gradesService';
 import {getProfessorByUsername} from '../services/professorService';
 import {getCourseById} from '../services/courseService';
 import {getSubjectsByTypeAndLevel, getSubjectById} from '../services/subjectService';
+import {getStudentsByCourse} from '../services/studentService';
 import {useEffect, useState} from 'react';
 
 const cookies = new Cookies();
@@ -29,9 +30,37 @@ const InsertGrades = () => {
     });
     const [coursesValues, setCoursesValues] = useState([]);
     const [subjectsValues, setSubjectsValues] = useState([]);
+    const [studentsValues, setStudentsValues] = useState([]);
+    const [count, setCount] = useState(0);
 
-    const handleSubmit = (gradesData) => {
-        saveGrades(gradesData);
+    const [values, setValues] = useState({
+        idSubject: '',
+        idCourse: '',
+        quimester: 0
+    })
+
+    const handleSubmit = () => {
+        for (var i=0; i<gradesValues.length; i++) {
+            const grades = {
+                lessons: gradesValues[i].lessons, 
+                participations: gradesValues[i].participations, 
+                homeworks: gradesValues[i].homeworks, 
+                project: gradesValues[i].project, 
+                exam: gradesValues[i].exam
+            }
+
+            const gradeInformation = {
+                grades: grades,
+                idStudent: gradesValues[i].idStudent,
+                idProfessor: professorValues._id,
+                idSubject: values.idSubject,
+                quimester: values.quimester
+            }
+
+            saveGrades(gradeInformation, setGradesValues, setValues, setStudentsValues, setSubjectsValues, setCoursesValues);
+        }
+        window.alert("Calificaciones registradas")
+        setCount(count + 1);
     };
 
     useEffect(() => {
@@ -46,7 +75,7 @@ const InsertGrades = () => {
 
         loadProfessor();
         
-    }, []);
+    }, [count]);
 
     useEffect(() => {
         async function loadCourses() {
@@ -98,6 +127,40 @@ const InsertGrades = () => {
     }, [professorValues]);
 
     useEffect(() => {
+        async function loadStudents() {
+            
+            const response = await getStudentsByCourse(values.idCourse);
+            
+            if (response.status === 200) {
+                setStudentsValues(response.data);
+            }
+        }
+
+        loadStudents();
+        
+    }, [values.idCourse]);
+
+    useEffect(() => {
+        
+        var gradesInicialization = []
+        for (var i=0; i<studentsValues.length; i++) {
+            var nameStudent = studentsValues[i].name + " " + studentsValues[i].lastName
+            gradesInicialization.push({
+                idStudent: studentsValues[i]._id,
+                nameStudent: nameStudent,
+                lessons: '',
+                participations: '',
+                homeworks: '',
+                project: '',
+                exam: ''
+            })
+        }
+
+        setGradesValues(gradesInicialization)
+        
+    }, [studentsValues]);
+
+    useEffect(() => {
         if (typeof cookies.get('user') === 'undefined' || cookies.get('type', {path: "/"}) !== '2') {
             window.location.href = "./";
         }
@@ -107,7 +170,8 @@ const InsertGrades = () => {
         <>
             <NavbarProfessor />
             <br />
-            <InsertGradesComponent handleSubmit={handleSubmit} professorValues={professorValues} coursesValues={coursesValues} subjectsValues={subjectsValues} />
+            <InsertGradesComponent handleSubmit={handleSubmit} gradesValues={gradesValues} setGradesValues={setGradesValues} professorValues={professorValues} coursesValues={coursesValues} 
+                subjectsValues={subjectsValues} studentsValues={studentsValues} values={values} setValues={setValues} />
         </> 
     );
 

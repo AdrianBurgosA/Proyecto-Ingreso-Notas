@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 
 const gradesSchema = mongoose.Schema({
   
-    grade:{
-        type: 'string',
+    grades:{
+        type: 'array',
         required: true
     },
     idStudent:{
