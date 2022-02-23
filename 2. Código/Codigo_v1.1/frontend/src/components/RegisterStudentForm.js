@@ -4,10 +4,12 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import Typography from '@mui/material/Typography';
+import Message from './MessageAlert';
 
 const RegisterStudentForm = (props) => {
 
     const handleSubmit = props.handleSubmit;
+    const [ messageBox, setMessage ] = useState({type: '', message: '', isHidden: true})
 
     const [studentValues, setStudentValues] = useState({
         name: '',
@@ -29,20 +31,21 @@ const RegisterStudentForm = (props) => {
 
     const handleSubmitInternal = (e) => {
         e.preventDefault();
-        handleSubmit(studentValues, setStudentValues);
+        handleSubmit(studentValues, setStudentValues, messageBox, setMessage);
     };
 
     return(
         <>
             <br/><Typography variant="h3" gutterBottom component="div" sx={{textAlign:'center'}}>
                 Registrar nuevo estudiante
-            </Typography><br/><br/>
+            </Typography>
             <Box
                 component="form"
                 sx={{
                     '& > :not(style)': { m: 1, width: '80ch'},
                 }}
             >
+                <Message type={messageBox.type} message={messageBox.message} isHidden={messageBox.isHidden}/>
                 <TextField name='name' value={studentValues.name} onChange={handleChange} id="outlined-basic" label="Nombre" variant="outlined" /><br/>
                 <TextField name='lastName' value={studentValues.lastName} onChange={handleChange} id="outlined-basic" label="Apellido" variant="outlined"/><br/>
                 <TextField name='idCard' value={studentValues.idCard} onChange={handleChange} id="outlined-basic" label="Cédula" variant="outlined" /><br/>

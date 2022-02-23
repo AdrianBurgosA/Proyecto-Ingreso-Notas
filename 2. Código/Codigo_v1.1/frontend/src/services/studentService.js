@@ -2,20 +2,17 @@ import axios from 'axios'
 
 const baseUrl = "http://localhost:3001";
 
-export async function saveStudent(studentData, setStudentValues){
-
+export async function saveStudent(studentData, setStudentValues, messageBox, setMessage){
     try{
         const response = await axios({
             url: `${baseUrl}/students`,
             method: 'POST',
             data: studentData
         });
-        window.alert('Estudiante registrado');
-        
+        setMessage({type: 'success', message: 'Estudiante registrado', isHidden: false})
     }catch(error){
         console.log(error);
-        window.log('Fallo en el registro: ' + error);
-
+        setMessage({type: 'error', message: 'Hubo problemas al registrar el estudiante', isHidden: false})
     }
     setStudentValues({
         name: '',

@@ -9,8 +9,8 @@ const cookies = new Cookies();
 
 const RegisterStudent = () => {
 
-    const handleSubmit = (studentData, setStudentValues) => {
-        saveStudent(studentData, setStudentValues);
+    const handleSubmit = (studentData, setStudentValues, messageBox, setMessage) => {
+        saveStudent(studentData, setStudentValues,messageBox, setMessage);
         saveUser(studentData);
     };
 

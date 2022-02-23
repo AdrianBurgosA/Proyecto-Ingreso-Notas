@@ -4,12 +4,6 @@ import {Box, Button, MenuItem, Select, FormControl, InputLabel, Grid, Card, Typo
 const FormAssignationCourseToProfessor = (props) => {
     const { professors,setCourses, courses, setLevel, id, setId, setProfessor, professor, handleUpdate } = props;
 
-        /*professor.idCourse.forEach(course => {
-            if(courses.includes(course)){
-                setCourses(courses.splice(course))
-            }
-        });*/
-
     const handleChangeLevel = (event) => {
         const { value } = event.target;
         setLevel(value);

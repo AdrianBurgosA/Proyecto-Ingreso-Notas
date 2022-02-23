@@ -66,15 +66,11 @@ const InsertGrades = () => {
     useEffect(() => {
         async function loadProfessor() {
             const response = await getProfessorByUsername(professorValues.user);
-
             if (response.status === 200) {
-                setProfessorValues(response.data[0]);
-                
+                setProfessorValues(response.data[0]);                
             }
         }
-
         loadProfessor();
-        
     }, [count]);
 
     useEffect(() => {
@@ -82,66 +78,46 @@ const InsertGrades = () => {
             var courses = [];
             
             for (var i=0; i<professorValues.idCourse.length; i++) {
-                const response = await getCourseById(professorValues.idCourse[i]);
-                
+                const response = await getCourseById(professorValues.idCourse[i]);                
                 if (response.status === 200) {
-                    courses.push(response.data);
-                    
+                    courses.push(response.data);                    
                 }
             }
-
             setCoursesValues(courses);
-            
         }
-
         loadCourses();
-        
     }, [professorValues]);
 
     useEffect(() => {
-        async function loadSubjects() {
-            
+        async function loadSubjects() {            
             if (professorValues.idSubject == "") {
                 const response = await getSubjectsByTypeAndLevel(0, professorValues.level);
-                
                 if (response.status === 200) {
                     setSubjectsValues(response.data);
-                    
                 }
             }else if (professorValues.idSubject != "") {
                 var subjectArray =  [];
                 const response = await getSubjectById(professorValues.idSubject);
-
                 subjectArray.push(response.data);
-
                 if (response.status === 200) {
-                    setSubjectsValues(subjectArray);
-                    
+                    setSubjectsValues(subjectArray);                    
                 }
-            }
-            
+            }            
         }
-
-        loadSubjects();
-        
+        loadSubjects();        
     }, [professorValues]);
 
     useEffect(() => {
-        async function loadStudents() {
-            
-            const response = await getStudentsByCourse(values.idCourse);
-            
+        async function loadStudents() {            
+            const response = await getStudentsByCourse(values.idCourse);            
             if (response.status === 200) {
                 setStudentsValues(response.data);
             }
         }
-
-        loadStudents();
-        
+        loadStudents();        
     }, [values.idCourse]);
 
-    useEffect(() => {
-        
+    useEffect(() => {        
         var gradesInicialization = []
         for (var i=0; i<studentsValues.length; i++) {
             var nameStudent = studentsValues[i].name + " " + studentsValues[i].lastName
@@ -155,9 +131,7 @@ const InsertGrades = () => {
                 exam: ''
             })
         }
-
-        setGradesValues(gradesInicialization)
-        
+        setGradesValues(gradesInicialization)        
     }, [studentsValues]);
 
     useEffect(() => {
