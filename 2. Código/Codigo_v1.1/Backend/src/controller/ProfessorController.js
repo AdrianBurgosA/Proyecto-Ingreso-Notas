@@ -65,6 +65,16 @@ router.get("/professors/:id", (req, res) => {
         .catch((error) => res.json({ message: error }));
 });
 
+//get a Professor by username
+router.get("/professorByUsername/:username", (req, res) => {
+    const { username } = req.params;
+    Professor.find({
+        user: username
+    })
+        .then((data) => res.json(data))
+        .catch((error) => res.json({ message: error }));
+});
+
 //get a professor by level
 router.get("/professorsByLevel/:level",(req,res) => {
     const { level } = req.params;

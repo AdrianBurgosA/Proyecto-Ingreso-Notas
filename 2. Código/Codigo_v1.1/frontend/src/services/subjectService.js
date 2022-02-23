@@ -27,5 +27,34 @@ export async function getSubjectsByType(){
   
     }catch(error){
       console.log(error)
+    
+    }
+};
+
+export async function getSubjectsByTypeAndLevel(type, level){
+    try{
+        const response = await axios({
+            url: `${baseUrl}/subjectsByTypeAndLevel/${type}/${level}`,
+            method: 'GET',
+        })
+        
+        return response;
+  
+    }catch(error){
+      console.log(error)
+    }
+};
+
+export async function getSubjectById(idSubject){
+    try{
+        const response = await axios({
+            url: `${baseUrl}/subjects/${idSubject}`,
+            method: 'GET',
+        })
+        
+        return response;
+  
+    }catch(error){
+      console.log(error)
     }
 };

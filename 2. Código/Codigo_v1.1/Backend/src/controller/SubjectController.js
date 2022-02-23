@@ -50,6 +50,17 @@ router.get("/subjectsByType", (req, res) => {
         .catch((error) => res.json({ message: error }));
 });
 
+//get Subjects by type 1 or 0
+router.get("/subjectsByTypeAndLevel/:type/:level", (req, res) => {
+    const { type, level } = req.params;
+    Subject.find({
+        type: type,
+        level: level
+    })
+        .then((data) => res.json(data))
+        .catch((error) => res.json({ message: error }));
+});
+
 //get a Subject
 router.get("/subjects/:id", (req, res) => {
 const { id } = req.params;
