@@ -18,6 +18,10 @@ const gradesSchema = mongoose.Schema({
         type: 'string',
         required: false
     },
+    idCourse:{
+        type: 'string',
+        required: false
+    },
     quimester:{
         type: 'number',
         required: true

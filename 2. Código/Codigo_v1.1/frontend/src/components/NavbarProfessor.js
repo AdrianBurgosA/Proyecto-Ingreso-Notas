@@ -91,8 +91,8 @@ const NavbarProfessor = () => {
                                         <Typography textAlign="center">Ingresar calificaciones</Typography>                               
                                 </MenuItem>
                             </Link>  
-                            <Link to='/seeGrades' className='link'>
-                                <MenuItem key='seeGrades'>                               
+                            <Link to='/seeGradesProfessor' className='link'>
+                                <MenuItem key='seeGradesProfessor'>                               
                                         <Typography textAlign="center">Visualizar calificaciones</Typography>                               
                                 </MenuItem>
                             </Link>  
