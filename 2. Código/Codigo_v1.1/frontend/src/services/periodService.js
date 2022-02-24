@@ -2,17 +2,16 @@ import axios from 'axios'
 
 const baseUrl = "http://localhost:3001";
 
-export async function savePeriod(periodData, setPeriodDataValues){
+export async function savePeriod(periodData, setPeriodDataValues, messageBox, setMessage){
     try{
         const response = await axios({
             url: `${baseUrl}/schoolYears`,
             method: 'POST',
             data: periodData
         });
-        window.alert('Año lectivo registrado');
+        setMessage({type: 'success', message: 'Año lectivo registrado', isHidden: false})
     }catch(error){
-        console.log(error);
-        window.alert('Fallo en el registro: ' + error);
+        setMessage({type: 'error', message: 'Hubo problemas al registrar el año lectivo', isHidden: false})
     }
     setPeriodDataValues({
         name: '',

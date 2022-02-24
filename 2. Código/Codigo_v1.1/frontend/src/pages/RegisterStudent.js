@@ -11,7 +11,7 @@ const RegisterStudent = () => {
 
     const handleSubmit = (studentData, setStudentValues, messageBox, setMessage) => {
         saveStudent(studentData, setStudentValues,messageBox, setMessage);
-        saveUser(studentData);
+        saveUser(studentData, setMessage);
     };
 
     useEffect(() => {

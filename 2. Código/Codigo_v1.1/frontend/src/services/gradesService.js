@@ -25,3 +25,47 @@ export async function saveGrades(gradesData, setGradesData, setValues, setStuden
         console.log(error);
     }
 };
+
+export async function getGradesByCourseSubjectAndQuimester(values){
+    try{
+        const response = await axios({
+            url: `${baseUrl}/gradesByCourseSubjectAndQuimester/${values.idCourse}/${values.idSubject}/${values.quimester}`,
+            method: 'GET',
+        })
+        
+        return response;
+    }catch(error){
+        console.log(error)
+    }
+}
+
+export async function getSubjectsWithoutGrades(idSubject, idCourse, quimester){
+    try{
+        const response = await axios({
+            url: `${baseUrl}/subjectsWithoutGrades/${idCourse}/${idSubject}/${quimester}`,
+            method: 'GET',
+        })
+        
+        if (response.data.length === 0) {
+            return false;
+        }else {
+            return true;
+        }
+
+    }catch(error){
+        console.log(error)
+    }
+}
+
+export async function updateGrades(gradesData, setGradesData, idGrade){
+    console.log(gradesData)
+    const response = await axios.put(`${baseUrl}/grades/${idGrade}`, gradesData)
+    .then(response => {
+        console.log('');
+    })
+    .catch(error => {
+        console.log(error)
+    });
+
+    
+};

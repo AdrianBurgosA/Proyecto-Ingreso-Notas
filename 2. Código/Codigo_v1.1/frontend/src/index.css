@@ -7,19 +7,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
 .form-center{
   display: flex;
   align-content: center;
   justify-content: center;
   margin: 0 auto;
 }
-
 .titleHome{
   font-size: 11vh;
   margin: 0;
@@ -35,11 +32,17 @@ code {
   color: #E9C46A;
   /* color: rgb(252, 134, 0); */
 }
-
 .logoNav{
   background-image: url(img/logo.png);
   width: 80px;
   height: 80px;
   background-size: cover;
   margin-right: 15px;
+}
+.msgError{
+  color: red;
+  height: max-content;
+  padding: 0%;
+  width: 5%;
+  text-align: left;
 }

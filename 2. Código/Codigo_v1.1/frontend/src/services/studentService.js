@@ -11,7 +11,6 @@ export async function saveStudent(studentData, setStudentValues, messageBox, set
         });
         setMessage({type: 'success', message: 'Estudiante registrado', isHidden: false})
     }catch(error){
-        console.log(error);
         setMessage({type: 'error', message: 'Hubo problemas al registrar el estudiante', isHidden: false})
     }
     setStudentValues({
@@ -28,7 +27,7 @@ export async function saveStudent(studentData, setStudentValues, messageBox, set
     });
 };
 
-export async function saveUser(studentData){
+export async function saveUser(studentData, messageBox, setMessage){
 
     try{
         const response = await axios({
@@ -41,9 +40,9 @@ export async function saveUser(studentData){
                 "type": 3
             }
         });
-        
+        setMessage({type: 'success', message: 'Estudiante registrado', isHidden: false})
     }catch(error){
-        console.log(error);
+        setMessage({type: 'error', message: 'Hubo problemas al registrar el estudiante', isHidden: false})
     }
 };
 

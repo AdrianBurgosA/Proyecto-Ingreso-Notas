@@ -1,17 +1,18 @@
 import Cookies from 'universal-cookie/es6';
 import NavbarProfessor from '../components/NavbarProfessor';
-import InsertGradesComponent from '../components/InsertGrades';
-import {saveGrades} from '../services/gradesService';
+import TableGradesProfessor from '../components/TableGradesProfessor';
+import ModalUpdateGrades from '../components/ModalUpdateGrades';
 import {getProfessorByUsername} from '../services/professorService';
 import {getCourseById} from '../services/courseService';
 import {getSubjectsByTypeAndLevel, getSubjectById} from '../services/subjectService';
 import {getStudentsByCourse} from '../services/studentService';
-import {getSubjectsWithoutGrades} from '../services/gradesService';
+import {getGradesByCourseSubjectAndQuimester, getSubjectsWithoutGrades, updateGrades} from '../services/gradesService';
 import {useEffect, useState} from 'react';
+import { Button } from '@mui/material';
 
 const cookies = new Cookies();
 
-const InsertGrades = () => {
+const SeeGradesProfessor = () => {
 
     const [gradesValues, setGradesValues] = useState([]);
     const [professorValues, setProfessorValues] = useState({
@@ -32,108 +33,91 @@ const InsertGrades = () => {
     const [coursesValues, setCoursesValues] = useState([]);
     const [subjectsValues, setSubjectsValues] = useState([]);
     const [studentsValues, setStudentsValues] = useState([]);
-    const [count, setCount] = useState(0);
 
     const [values, setValues] = useState({
         idSubject: '',
         idCourse: '',
         quimester: 0
-    })
+    });
 
-    const handleSubmit = () => {
+    const [modal, setModal] = useState(false);
+
+    const openModal = () => {
+        setModal(true);
+    }
+
+    const handleUpdate = () => {
         for (var i=0; i<gradesValues.length; i++) {
-            const grades = {
-                lessons: gradesValues[i].lessons, 
-                participations: gradesValues[i].participations, 
-                homeworks: gradesValues[i].homeworks, 
-                project: gradesValues[i].project, 
-                exam: gradesValues[i].exam
-            }
-
             const gradeInformation = {
-                grades: grades,
+                grades: gradesValues[i].grades,
                 idStudent: gradesValues[i].idStudent,
-                idProfessor: professorValues._id,
-                idSubject: values.idSubject,
-                idCourse: values.idCourse,
-                quimester: values.quimester
+                idProfessor: gradesValues[i].idProfessor,
+                idSubject: gradesValues[i].idSubject,
+                idCourse: gradesValues[i].idCourse,
+                quimester: gradesValues[i].quimester
             }
 
-            saveGrades(gradeInformation, setGradesValues, setValues, setStudentsValues, setSubjectsValues, setCoursesValues);
+            updateGrades(gradeInformation, setGradesValues, gradesValues[i]._id);
         }
-        window.alert("Calificaciones registradas")
-        setCount(count + 1);
+        window.alert("Calificaciones actualizadas");
     };
 
     useEffect(() => {
         async function loadProfessor() {
             const response = await getProfessorByUsername(professorValues.user);
+
             if (response.status === 200) {
-<<<<<<< HEAD
-                setProfessorValues(response.data[0]);                
-=======
                 setProfessorValues(response.data[0]);
->>>>>>> 090d6ca01e87aa46f123cf3c8c877adf4dd2bfa9
             }
         }
+
         loadProfessor();
-    }, [count]);
+        
+    }, []);
 
     useEffect(() => {
         async function loadCourses() {
             var courses = [];
             
             for (var i=0; i<professorValues.idCourse.length; i++) {
-                const response = await getCourseById(professorValues.idCourse[i]);                
+                const response = await getCourseById(professorValues.idCourse[i]);
+                
                 if (response.status === 200) {
-                    courses.push(response.data);                    
+                    courses.push(response.data);
+                    
                 }
             }
-            setCoursesValues(courses);
-        }
-        loadCourses();
-<<<<<<< HEAD
-    }, [professorValues]);
 
-    useEffect(() => {
-        async function loadSubjects() {            
-            if (professorValues.idSubject == "") {
-=======
+            setCoursesValues(courses);
+            
+        }
+
+        loadCourses();
         
     }, [values.quimester]);
 
     useEffect(() => {
         async function loadSubjects() {
             
-            if (professorValues.idSubject === "") {
->>>>>>> 090d6ca01e87aa46f123cf3c8c877adf4dd2bfa9
+            if (professorValues.idSubject == "") {
                 const response = await getSubjectsByTypeAndLevel(0, professorValues.level);
+                
                 if (response.status === 200) {
-<<<<<<< HEAD
-                    setSubjectsValues(response.data);
+                    const data = response.data;
+                    var subjects = [];
+
+                    for (var i=0; i<data.length; i++) {
+                        const auxBool = await getSubjectsWithoutGrades(data[i]._id, values.idCourse, values.quimester);
+                        if (auxBool === true) {
+                            subjects.push(data[i]);
+                        }
+                    }
+
+                    setSubjectsValues(subjects);
+                    
                 }
+
             }else if (professorValues.idSubject != "") {
-                var subjectArray =  [];
-                const response = await getSubjectById(professorValues.idSubject);
-                subjectArray.push(response.data);
-                if (response.status === 200) {
-                    setSubjectsValues(subjectArray);                    
-=======
-                    const data = response.data;
-                    var subjects = [];
-
-                    for (var i=0; i<data.length; i++) {
-                        const auxBool = await getSubjectsWithoutGrades(data[i]._id, values.idCourse, values.quimester);
-                        if (auxBool === false) {
-                            subjects.push(data[i]);
-                        }
-                    }
-
-                    setSubjectsValues(subjects);
-                    
-                }
-
-            }else if (professorValues.idSubject !== "") {
                 const response = await getSubjectById(professorValues.idSubject);
 
                 if (response.status === 200) {
@@ -142,53 +126,50 @@ const InsertGrades = () => {
 
                     for (var i=0; i<data.length; i++) {
                         const auxBool = await getSubjectsWithoutGrades(data[i]._id, values.idCourse, values.quimester);
-                        if (auxBool === false) {
+                        if (auxBool === true) {
                             subjects.push(data[i]);
                         }
                     }
 
                     setSubjectsValues(subjects);
                     
->>>>>>> 090d6ca01e87aa46f123cf3c8c877adf4dd2bfa9
                 }
-            }            
+            }
+            
         }
-<<<<<<< HEAD
-        loadSubjects();        
-    }, [professorValues]);
-=======
 
         loadSubjects();
         
     }, [values.idCourse, values.quimester]);
->>>>>>> 090d6ca01e87aa46f123cf3c8c877adf4dd2bfa9
 
     useEffect(() => {
-        async function loadStudents() {            
-            const response = await getStudentsByCourse(values.idCourse);            
+        async function loadStudents() {
+            
+            const response = await getStudentsByCourse(values.idCourse);
+            
             if (response.status === 200) {
                 setStudentsValues(response.data);
             }
         }
-        loadStudents();        
+
+        loadStudents();
+        
     }, [values.idCourse]);
 
-    useEffect(() => {        
-        var gradesInicialization = []
-        for (var i=0; i<studentsValues.length; i++) {
-            var nameStudent = studentsValues[i].name + " " + studentsValues[i].lastName
-            gradesInicialization.push({
-                idStudent: studentsValues[i]._id,
-                nameStudent: nameStudent,
-                lessons: '',
-                participations: '',
-                homeworks: '',
-                project: '',
-                exam: ''
-            })
+    useEffect(() => {
+        
+        async function loadGrades() {
+            
+            const response = await getGradesByCourseSubjectAndQuimester(values);
+            
+            if (response.status === 200) {
+                setGradesValues(response.data);
+            }
         }
-        setGradesValues(gradesInicialization)        
-    }, [studentsValues]);
+
+        loadGrades();
+        
+    }, [values]);
 
     useEffect(() => {
         if (typeof cookies.get('user') === 'undefined' || cookies.get('type', {path: "/"}) !== '2') {
@@ -200,10 +181,25 @@ const InsertGrades = () => {
         <>
             <NavbarProfessor />
             <br />
-            <InsertGradesComponent handleSubmit={handleSubmit} gradesValues={gradesValues} setGradesValues={setGradesValues} coursesValues={coursesValues} 
-                subjectsValues={subjectsValues} values={values} setValues={setValues} />
+            <TableGradesProfessor gradesValues={gradesValues} coursesValues={coursesValues} subjectsValues={subjectsValues} studentsValues={studentsValues} values={values} setValues={setValues} />
+            <br />
+            <Button
+                variant="contained"
+                size = "large"
+                onClick={openModal}
+                sx={{
+                    boxShadow: '1px 1px 5px #333',
+                    background: 'linear-gradient(to right, #4d83b8, #4d83b8)',
+                    width: '30%',
+                    marginLeft: '35%'
+                }}        
+            >
+                Editar
+            </Button>
+            <br />
+            <ModalUpdateGrades handleUpdate={handleUpdate} modal={modal} setModal={setModal} gradesValues={gradesValues} setGradesValues={setGradesValues} studentsValues={studentsValues} />
         </> 
     );
 
 };
-export default InsertGrades; 
+export default SeeGradesProfessor; 

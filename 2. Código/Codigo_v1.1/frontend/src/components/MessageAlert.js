@@ -6,14 +6,14 @@ const MessageAlert = ( props ) => {
     
     const messageBoxRender = () => {
         return (
-            <Alert severity={type}>{message}</Alert>
+            <Alert severity={type} style={{width: '100%', marginLeft:'2%'}}>{message}</Alert>
         )
     }
 
     return(
-            isHidden?
-            <></>:
-            messageBoxRender()
+        isHidden?
+        <></>:
+        messageBoxRender()
     )
 }
 

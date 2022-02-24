@@ -11,14 +11,10 @@ const InsertGrades = (props) => {
     const handleSubmit = props.handleSubmit;
     const gradesValues = props.gradesValues;
     const setGradesValues = props.setGradesValues;
-    const professorValues = props.professorValues;
     const coursesValues = props.coursesValues;
     const subjectsValues = props.subjectsValues;
-    const studentsValues = props.studentsValues;
     const values = props.values;
     const setValues = props.setValues;
-    
-    const [counter, setCounter] = useState(0)
 
     const handleChange = (event) => {
         const { name, value } = event.target
@@ -27,7 +23,6 @@ const InsertGrades = (props) => {
 
     const handleChangeGrades = (event) => {
         const { id, name, value } = event.target
-        //setGradesValues([...gradesValues, {[name]: value}])
 
         const newGrades = gradesValues.map((grade) => {
             if (grade.idStudent === id) {
@@ -38,11 +33,9 @@ const InsertGrades = (props) => {
             }
             return grade
         })
-        console.log(newGrades)
+        
         setGradesValues(newGrades)
     };
-    
-    console.log(gradesValues)
 
     const handleSubmitInternal = (e) => {
         e.preventDefault();
@@ -83,6 +76,27 @@ const InsertGrades = (props) => {
                         </Select>
                     </FormControl>
 
+                    <FormControl fullWidth>
+                        <InputLabel id="labelCourse">Cursos</InputLabel>
+                        <Select
+                            fullWidth
+                            labelId="labelCourse"
+                            id="idCourse"
+                            name='idCourse'
+                            value={values.idCourse}
+                            label="Cursos"
+                            onChange={handleChange}
+                        >
+                            <MenuItem disabled selected>Seleccione un curso </MenuItem>
+                            {
+                                coursesValues.map(item => (
+                                    <MenuItem value={item._id}>{item.number} {item.parallel}</MenuItem>
+                                    
+                                ))
+                            }
+
+                        </Select>
+                    </FormControl>
 
                     <FormControl fullWidth>
                         <InputLabel id="labelSubject">Materias</InputLabel>
@@ -99,30 +113,6 @@ const InsertGrades = (props) => {
                             {
                                 subjectsValues.map(item => (
                                     <MenuItem value={item._id}>{item.name}</MenuItem>
-                                    
-                                ))
-                            }
-
-                        </Select>
-                    </FormControl>
-
-                    <br />
-
-                    <FormControl fullWidth>
-                        <InputLabel id="labelCourse">Cursos</InputLabel>
-                        <Select
-                            fullWidth
-                            labelId="labelCourse"
-                            id="idCourse"
-                            name='idCourse'
-                            value={values.idCourse}
-                            label="Cursos"
-                            onChange={handleChange}
-                        >
-                            <MenuItem disabled selected>Seleccione un curso </MenuItem>
-                            {
-                                coursesValues.map(item => (
-                                    <MenuItem value={item._id}>{item.number} {item.parallel}</MenuItem>
                                     
                                 ))
                             }

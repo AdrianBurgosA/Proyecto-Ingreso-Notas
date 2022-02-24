@@ -12,6 +12,7 @@ import AssignationSubjectoToProfessor from './pages/AssignationSubjectToProfesso
 import AssignationCourseToProfessor from './pages/AssignationCourseToProfessor';
 import AssignationStudentToCourse from './pages/AssignationStudentToCourse';
 import InsertGrades from './pages/InsertGrades';
+import SeeGradesProfessor from './pages/SeeGradesProfessor';
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="/courseToProfessor" element={<AssignationCourseToProfessor/>}/>
         <Route path="/studentToCourse" element={<AssignationStudentToCourse/>}/>
         <Route path="/registerGrades" element={<InsertGrades/>}/>
+        <Route path="/seeGradesProfessor" element={<SeeGradesProfessor />}/>
       </Routes>
     </BrowserRouter>
   )

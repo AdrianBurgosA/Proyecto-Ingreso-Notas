@@ -9,8 +9,8 @@ const cookies = new Cookies();
 
 const CreatePeriod = () => {
 
-    const handleSubmit = (periodData, setPeriodDataValues) => {
-        savePeriod(periodData, setPeriodDataValues);
+    const handleSubmit = (periodData, setPeriodDataValues, messageBox, setMessage) => {
+        savePeriod(periodData, setPeriodDataValues, messageBox, setMessage);
     }
 
     useEffect(() => {
@@ -21,7 +21,7 @@ const CreatePeriod = () => {
 
     return(
         <>
-            <NavbarAdmin/>
+            <NavbarAdmin/><br/>
             <center>
                 <RegisterForm handleSubmit={handleSubmit} />
             </center>

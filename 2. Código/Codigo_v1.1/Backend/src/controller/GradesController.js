@@ -20,17 +20,40 @@ router.get("/grades", (req, res) => {
 
 //get a Grades
 router.get("/grades/:id", (req, res) => {
-const { id } = req.params;
+    const { id } = req.params;
     Grades.findById(id)
+        .then((data) => res.json(data))
+        .catch((error) => res.json({ message: error }));
+});
+
+//get a Grades
+router.get("/subjectsWithoutGrades/:idCourse/:idSubject/:quimester", (req, res) => {
+    const { idCourse, idSubject, quimester } = req.params;
+    Grades.find({
+        idCourse: idCourse,
+        idSubject: idSubject,
+        quimester: quimester
+    })
+        .then((data) => res.json(data))
+        .catch((error) => res.json({ message: error }));
+});
+
+router.get("/gradesByCourseSubjectAndQuimester/:idCourse/:idSubject/:quimester", (req, res) => {
+    const { idCourse, idSubject, quimester } = req.params;
+    Grades.find({
+        idCourse: idCourse,
+        idSubject: idSubject,
+        quimester: quimester
+    })
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });
 
 //update a Grades
 router.put("/grades/:id", (req, res) => {
-const { id } = req.params;
-const {grades, idStudent, idProfessor, idSubject, quimester} = req.body;
-    Grades.updateOne({_id: id},{$set: {grades, idStudent, idProfessor, idSubject, quimester}})
+    const { id } = req.params;
+    const {grades, idStudent, idProfessor, idSubject, idCourse, quimester} = req.body;
+    Grades.updateOne({_id: id},{$set: {grades, idStudent, idProfessor, idSubject, idCourse, quimester}})
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });
