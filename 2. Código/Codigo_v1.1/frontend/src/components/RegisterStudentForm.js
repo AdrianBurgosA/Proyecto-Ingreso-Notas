@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import Message from './MessageAlert';
 
 const RegisterStudentForm = (props) => {
-
+    const countriesLatam = ['Ecuador','Colombia','Venezuela','Argentina','Chile','Brasil','Uruguay','Paraguay','Perú']
     const handleSubmit = props.handleSubmit;
     const [ messageBox, setMessage ] = useState({type: '', message: '', isHidden: false})
     const [ validation, setValidation ] = useState({
@@ -343,6 +343,13 @@ const RegisterStudentForm = (props) => {
         }
     }
 
+    const dateValidation = () => {
+        const bornYear = studentValues.bornYear
+        const iYear = document.getElementById('iYear')
+        const year = document.getElementById('date')
+        iYear.textContent = `Year: ${year}`
+    }
+
     return(
         <>
             <br/><Typography variant="h3" gutterBottom component="div" sx={{textAlign:'center'}}>
@@ -380,6 +387,7 @@ const RegisterStudentForm = (props) => {
                     InputLabelProps={{
                         shrink: true
                     }}
+                    onBlur={dateValidation}
                 />
                 <i id="iYear" class="msgError"></i><br/>
                 <Box sx={{display: 'flex'}}>

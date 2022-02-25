@@ -69,11 +69,7 @@ const InsertGrades = () => {
         async function loadProfessor() {
             const response = await getProfessorByUsername(professorValues.user);
             if (response.status === 200) {
-<<<<<<< HEAD
-                setProfessorValues(response.data[0]);                
-=======
-                setProfessorValues(response.data[0]);
->>>>>>> 090d6ca01e87aa46f123cf3c8c877adf4dd2bfa9
+                setProfessorValues(response.data[0]);   
             }
         }
         loadProfessor();
@@ -92,13 +88,6 @@ const InsertGrades = () => {
             setCoursesValues(courses);
         }
         loadCourses();
-<<<<<<< HEAD
-    }, [professorValues]);
-
-    useEffect(() => {
-        async function loadSubjects() {            
-            if (professorValues.idSubject == "") {
-=======
         
     }, [values.quimester]);
 
@@ -106,31 +95,17 @@ const InsertGrades = () => {
         async function loadSubjects() {
             
             if (professorValues.idSubject === "") {
->>>>>>> 090d6ca01e87aa46f123cf3c8c877adf4dd2bfa9
                 const response = await getSubjectsByTypeAndLevel(0, professorValues.level);
                 if (response.status === 200) {
-<<<<<<< HEAD
-                    setSubjectsValues(response.data);
-                }
-            }else if (professorValues.idSubject != "") {
-                var subjectArray =  [];
-                const response = await getSubjectById(professorValues.idSubject);
-                subjectArray.push(response.data);
-                if (response.status === 200) {
-                    setSubjectsValues(subjectArray);                    
-=======
                     const data = response.data;
                     var subjects = [];
-
                     for (var i=0; i<data.length; i++) {
                         const auxBool = await getSubjectsWithoutGrades(data[i]._id, values.idCourse, values.quimester);
                         if (auxBool === false) {
                             subjects.push(data[i]);
                         }
                     }
-
                     setSubjectsValues(subjects);
-                    
                 }
 
             }else if (professorValues.idSubject !== "") {
@@ -149,19 +124,11 @@ const InsertGrades = () => {
 
                     setSubjectsValues(subjects);
                     
->>>>>>> 090d6ca01e87aa46f123cf3c8c877adf4dd2bfa9
                 }
             }            
         }
-<<<<<<< HEAD
         loadSubjects();        
     }, [professorValues]);
-=======
-
-        loadSubjects();
-        
-    }, [values.idCourse, values.quimester]);
->>>>>>> 090d6ca01e87aa46f123cf3c8c877adf4dd2bfa9
 
     useEffect(() => {
         async function loadStudents() {            
