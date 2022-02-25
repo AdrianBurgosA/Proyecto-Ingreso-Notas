@@ -25,7 +25,7 @@ const RegisterStudentForm = (props) => {
     const [studentValues, setStudentValues] = useState({
         name: '',
         lastName: '',
-        bornYear: '',
+        bornYear: new Date(),
         idCard: '',
         genre: '',
         nationality: '',
@@ -347,7 +347,39 @@ const RegisterStudentForm = (props) => {
         const bornYear = studentValues.bornYear
         const iYear = document.getElementById('iYear')
         const year = document.getElementById('date')
-        iYear.textContent = `Year: ${year}`
+        const born = new Date(year.value)
+        const actualDate = new Date()
+        const iterator = 0
+        if(year.value === ''){
+            setValidation({...validation,bornYearOk: false})
+            iYear.textContent = "*Escoga una fecha. Campo obligatorio"
+            iterator++
+        }else if(born.getFullYear() > actualDate.getFullYear()){
+            setValidation({...validation,bornYearOk: false})
+            iYear.textContent = "*El año escogido supera al año actual"
+            iterator++
+        }else{
+            if((born.getMonth() <= actualDate.getMonth()) && (born.getDay() <= actualDate.getDay())){
+                iYear.textContent = ""
+                setValidation({...validation, bornYearOk: true}) 
+            }else{
+                setValidation({...validation,bornYearOk: false})
+                iYear.textContent = "*La fecha escogida no debe se mayor a la fecha actual."
+                iterator++
+            }
+        }
+
+        if(iterator === 0){
+            iYear.textContent = ""
+            year.style.border = ''
+            setValidation({...validation, bornYearOk: true})
+        }else{
+            year.style.borderTop='2px solid red'
+            year.style.borderBottom='2px solid red'
+            year.style.borderRight='2px solid red'
+            year.style.borderLeft='2px solid red'
+            year.style.borderRadius='5px'
+        }
     }
 
     return(
@@ -388,7 +420,7 @@ const RegisterStudentForm = (props) => {
                         shrink: true
                     }}
                     onBlur={dateValidation}
-                />
+                /><br/>
                 <i id="iYear" class="msgError"></i><br/>
                 <Box sx={{display: 'flex'}}>
                     <Button
