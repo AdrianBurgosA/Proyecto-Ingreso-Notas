@@ -2,6 +2,10 @@ import React,{useState} from 'react'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
 import '../index.css'
 import Typography from '@mui/material/Typography';
 import Message from './MessageAlert';
@@ -15,8 +19,6 @@ const RegisterStudentForm = (props) => {
         lastNameOk: false,
         idOk: false,
         emailOk: false,
-        genreOk: true,
-        nationality: false,
         bornYearOk: false,
         userOk: false,
         passwordOk: false
@@ -42,7 +44,11 @@ const RegisterStudentForm = (props) => {
 
     const handleSubmitInternal = (e) => {
         e.preventDefault();
-        handleSubmit(studentValues, setStudentValues, messageBox, setMessage);
+        if(validation.nameOk && validation.lastNameOk && validation.idOk && validation.emailOk && validation.bornYearOk && validation.userOk && validation.passwordOk){
+            handleSubmit(studentValues, setStudentValues, messageBox, setMessage);
+        }else{
+            setMessage({type: 'error', message: 'Ingresa correctamente los campos', isHidden: false})
+        }
     };
 
     const nameValidation = () => {
@@ -288,7 +294,7 @@ const RegisterStudentForm = (props) => {
         var auxIterator = 0
 
         if (userName === "") {
-            iUser.textContent = "*Ingrese la contraseña. Campo obligatorio."
+            iUser.textContent = "*Ingrese un usuario. Campo obligatorio."
             auxIterator++
             setValidation({...validation, userOk: false})
         }
@@ -344,7 +350,6 @@ const RegisterStudentForm = (props) => {
     }
 
     const dateValidation = () => {
-        const bornYear = studentValues.bornYear
         const iYear = document.getElementById('iYear')
         const year = document.getElementById('date')
         const born = new Date(year.value)
@@ -358,7 +363,7 @@ const RegisterStudentForm = (props) => {
             setValidation({...validation,bornYearOk: false})
             iYear.textContent = "*El año escogido supera al año actual"
             iterator++
-        }else{
+        }else if(born.getFullYear() === actualDate.getFullYear()){
             if((born.getMonth() <= actualDate.getMonth()) && (born.getDay() <= actualDate.getDay())){
                 iYear.textContent = ""
                 setValidation({...validation, bornYearOk: true}) 
@@ -399,10 +404,24 @@ const RegisterStudentForm = (props) => {
                 <i id="iLastName" class="msgError"></i><br/>
                 <TextField id = "idCard" name='idCard' value={studentValues.idCard} onChange={handleChange} label="Cédula" onBlur={idCardValidation}/><br/>
                 <i id="iCard" class="msgError"></i><br/>
-                <TextField id = "genre" name='genre' value={studentValues.genre} onChange={handleChange} label="Género"  /><br/>
-                <i id="iGenre" class="msgError"></i><br/>
-                <TextField id = "national" name='nationality' value={studentValues.nationality} onChange={handleChange} label="Nacionalidad"/><br/>
-                <i id="iNational" class="msgError"></i><br/>
+                <FormControl fullWidth>
+                    <InputLabel id="labelLevels">Género</InputLabel>
+                    <Select id = "genre" name='genre' onChange={handleChange}>
+                        <MenuItem disabled selected>Seleccione el nivel</MenuItem>
+                        <MenuItem value="M">Masculino</MenuItem>
+                        <MenuItem value="F">Femenino</MenuItem>
+                    </Select><br/>
+                </FormControl><br/>
+                <FormControl fullWidth>
+                    <InputLabel id="nationality">Nacionalidad</InputLabel>
+                    <Select id = "national" name='nationality' onChange={handleChange}>
+                        {
+                            countriesLatam.map(country => 
+                                <MenuItem value={country}>{country}</MenuItem>
+                            )
+                        }
+                    </Select>
+                </FormControl><br/>
                 <TextField id = "email" name='email' value={studentValues.email} onChange={handleChange} label="Correo eléctronico" onBlur={emailValidation}/><br/>
                 <i id="iEmail" class="msgError"></i><br/>
                 <TextField id = "user" name='user' value={studentValues.user} onChange={handleChange} label="Usuario" onBlur={userValidation}/><br/>
