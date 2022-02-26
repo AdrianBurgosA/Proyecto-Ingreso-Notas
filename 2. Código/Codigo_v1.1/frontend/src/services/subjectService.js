@@ -31,6 +31,21 @@ export async function getSubjectsByType(){
     }
 };
 
+export async function getSubjectsByLevel(level){
+    try{
+        const response = await axios({
+            url: `${baseUrl}/subjectsByLevel/${level}`,
+            method: 'GET',
+        })
+        
+        return response;
+  
+    }catch(error){
+      console.log(error)
+    
+    }
+};
+
 export async function getSubjectsByTypeAndLevel(type, level){
     try{
         const response = await axios({

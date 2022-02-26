@@ -49,6 +49,16 @@ router.get("/gradesByCourseSubjectAndQuimester/:idCourse/:idSubject/:quimester",
         .catch((error) => res.json({ message: error }));
 });
 
+router.get("/gradesByStudentAndQuimester/:idStudent/:quimester", (req, res) => {
+    const { idStudent, quimester } = req.params;
+    Grades.find({
+        idStudent: idStudent,
+        quimester: quimester
+    })
+        .then((data) => res.json(data))
+        .catch((error) => res.json({ message: error }));
+});
+
 //update a Grades
 router.put("/grades/:id", (req, res) => {
     const { id } = req.params;

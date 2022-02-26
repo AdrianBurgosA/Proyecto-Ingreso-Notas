@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Login from './pages/Login';
 import HomeScreenAdmin from './pages/HomeScreenAdmin';
 import HomeScreenProfessor from './pages/HomeScreenProfessor';
+import HomeScreenStudent from './pages/HomeScreenStudent';
 import ImportData from './pages/ImportData';
 import ImportProfessors from './pages/ImportProfessors';
 import RegisterStudent from './pages/RegisterStudent'
@@ -13,6 +14,7 @@ import AssignationCourseToProfessor from './pages/AssignationCourseToProfessor';
 import AssignationStudentToCourse from './pages/AssignationStudentToCourse';
 import InsertGrades from './pages/InsertGrades';
 import SeeGradesProfessor from './pages/SeeGradesProfessor';
+import SeeGradesStudent from './pages/SeeGradesStudent';
 
 const App = () => {
   return (
@@ -21,6 +23,7 @@ const App = () => {
         <Route path="/" element={<Login />} />
         <Route path="/homeScreenAdmin" element={<HomeScreenAdmin />} />
         <Route path="/homeScreenProfessor" element={<HomeScreenProfessor />} />
+        <Route path="/homeScreenStudent" element={<HomeScreenStudent />} />
         <Route path="/importData" element={<ImportData />} />
         <Route path="/importProfessors" element={<ImportProfessors />} />
         <Route path="/createStudent" element={<RegisterStudent/>}/>
@@ -31,6 +34,7 @@ const App = () => {
         <Route path="/studentToCourse" element={<AssignationStudentToCourse/>}/>
         <Route path="/registerGrades" element={<InsertGrades/>}/>
         <Route path="/seeGradesProfessor" element={<SeeGradesProfessor />}/>
+        <Route path="/seeGradesStudent" element={<SeeGradesStudent />}/>
       </Routes>
     </BrowserRouter>
   )

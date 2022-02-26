@@ -27,6 +27,15 @@ router.get("/students/:id", (req, res) => {
 });
 
 //get Students by course
+router.get("/studentByUsername/:username", (req, res) => {
+    const { username } = req.params;
+    Student.find({
+        user: username
+    })
+        .then((data) => res.json(data))
+        .catch((error) => res.json({ message: error }));
+});
+
 router.get("/studentsByCourse/:idCourse", (req, res) => {
     const { idCourse } = req.params;
     Student.find({

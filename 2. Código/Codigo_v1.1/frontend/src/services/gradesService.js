@@ -37,7 +37,21 @@ export async function getGradesByCourseSubjectAndQuimester(values){
     }catch(error){
         console.log(error)
     }
-}
+};
+
+export async function getGradesByStudentAndQuimester(idStudent, quimester){
+    try{
+        const response = await axios({
+            url: `${baseUrl}/gradesByStudentAndQuimester/${idStudent}/${quimester}`,
+            method: 'GET',
+        })
+        
+        return response;
+        
+    }catch(error){
+        console.log(error)
+    }
+};
 
 export async function getSubjectsWithoutGrades(idSubject, idCourse, quimester){
     try{
