@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -9,7 +9,20 @@ import '../index.css'
 const RegisterPeriodForm = (props) => {
     const {handleSubmit} = props
     const [ messageBox, setMessage ] = useState({type: '', message: '', isHidden: true})
-
+    const todayDate = new Date()
+    
+    useEffect(() => {
+        var todayDate = new Date();
+        var month = todayDate.getMonth()+1;
+        var day = todayDate.getDate();
+        var year = todayDate.getFullYear(); 
+        if(day<10)
+            day='0'+day; 
+        if(month<10)
+            month='0'+month 
+        setPeriod({...period, startDate:(year)+"-"+month+"-"+day , endDate: year+"-"+month+"-"+day })
+    }, []);
+    
     const [ period, setPeriod ] = useState({
         name: '',
         startDate: new Date(),
@@ -97,13 +110,11 @@ const RegisterPeriodForm = (props) => {
     }
 
     const endDateValidation = () => {
-        const iYear = document.getElementById('iEndDate')
-        const endYear = document.getElementById('endDate')
-        const startYear = document.getElementById('startDate')
-        const born = new Date(endYear.value)
+        const endDate = document.getElementById('endDate')
+        const endDateSelected = new Date(endDate.value)
+        const iEndDate = document.getElementById('iEndDate')
         const actualDate = new Date()
-        const iterator = 0
-        iYear.textContent = `${startYear.getFullYear()}`
+        iEndDate.textContent = `selected: ${endDateSelected} / actual: ${actualDate}`
     }
 
     return(
@@ -121,13 +132,13 @@ const RegisterPeriodForm = (props) => {
                     label="Nombre" 
                     style={{ width:'100%'}}
                     onBlur={nameValidation}
-                /><br/><br/>
-                <i id="iName" class="msgError"></i>
+                /><br/>
+                <i id="iName" class="msgError"></i><br/>
                 <TextField
                     id="startDate"
                     label="Fecha de comienzo"
                     type="date"
-                    defaultValue="2022-05-24"
+                    defaultValue="2023-05-24"
                     value={period.startDate}
                     onChange= {(event) => setPeriod({...period,startDate: event.target.value})}
                     style={{ width:'100%'}}

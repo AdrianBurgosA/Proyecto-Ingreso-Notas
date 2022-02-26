@@ -13,6 +13,7 @@ import Message from './MessageAlert';
 const RegisterStudentForm = (props) => {
     const countriesLatam = ['Ecuador','Colombia','Venezuela','Argentina','Chile','Brasil','Uruguay','Paraguay','Perú']
     const handleSubmit = props.handleSubmit;
+    const students = props.students
     const [ messageBox, setMessage ] = useState({type: '', message: '', isHidden: false})
     const [ validation, setValidation ] = useState({
         nameOk: false,
@@ -59,6 +60,7 @@ const RegisterStudentForm = (props) => {
         var splitName = name.split(' ')
         var auxIterator = 0
         var correctName = ""
+
         if (name === "") {
             iName.textContent = "*Ingrese el nombre. Campo obligatorio."
             auxIterator++
@@ -184,8 +186,8 @@ const RegisterStudentForm = (props) => {
 		}
 
         if (auxIterator !== 1) {
-            for (var i=0; i<studentValues.length; i++) {
-                if (studentValues[i].idCard === idCard) {
+            for (var i=0; i<students.length; i++) {
+                if (students[i].idCard === idCard) {
                     iCard.textContent = "*Cédula ya registrada"
                     auxIterator++
                     setValidation({...validation, idOk: false})
@@ -274,6 +276,21 @@ const RegisterStudentForm = (props) => {
             setValidation({...validation, emailOk: false})
         }
 
+        if (auxIterator !== 1) {
+            var auxBool = true;
+            students.forEach(student => {
+                if(studentValues.email === student.email){
+                    auxBool = false;
+                    return
+                }
+            })
+            if(auxBool === false){
+                iEmail.textContent = "*Correo electronico ya registrado";
+                auxIterator++;
+                setValidation({...validation, emailOk: false});
+            }
+        }
+
         if (auxIterator === 0) {
             iEmail.textContent = ""
             emails.style.border=''
@@ -292,7 +309,7 @@ const RegisterStudentForm = (props) => {
         const iUser = document.getElementById('iUser')
         const user= document.getElementById('user')
         var auxIterator = 0
-
+        
         if (userName === "") {
             iUser.textContent = "*Ingrese un usuario. Campo obligatorio."
             auxIterator++
@@ -304,7 +321,22 @@ const RegisterStudentForm = (props) => {
             auxIterator++
             setValidation({...validation, userOk: false})
         }
-
+        
+        if (auxIterator !== 1) {
+            var auxBool = true;
+            students.forEach(student => {
+                if(studentValues.user === student.user){
+                    auxBool = false;
+                    return
+                }
+            })
+            if(auxBool === false){
+                iUser.textContent = "*Nombre de usuario ya registrado";
+                auxIterator++;
+                setValidation({...validation, userOk: false});
+            }
+        }
+        
         if (auxIterator === 0) {
             iUser.textContent = ""
             user.style.border=''
@@ -348,6 +380,25 @@ const RegisterStudentForm = (props) => {
             pass.style.borderRadius='5px'
         }
     }
+
+    const existsValidation = () => {
+        students.forEach(student => {
+            if(studentValues.idCard === student.idCard){
+                setMessage({type: 'error', message: 'La cedula ingresada ya existe', isHidden: false})
+                return false
+            }
+            if(studentValues.email === student.email){
+                setMessage({type: 'error', message: 'El correo ingresado ya existe', isHidden: false})
+                return false
+            }
+            if(studentValues.user === student.user){
+                setMessage({type: 'error', message: 'El usuario ingresado ya existe', isHidden: false})
+                return false
+            }
+        })
+        return true
+    }
+
 
     const dateValidation = () => {
         const iYear = document.getElementById('iYear')
@@ -422,6 +473,7 @@ const RegisterStudentForm = (props) => {
                         }
                     </Select>
                 </FormControl><br/>
+                <i id="iEmail" class="msgError"></i><br/>
                 <TextField id = "email" name='email' value={studentValues.email} onChange={handleChange} label="Correo eléctronico" onBlur={emailValidation}/><br/>
                 <i id="iEmail" class="msgError"></i><br/>
                 <TextField id = "user" name='user' value={studentValues.user} onChange={handleChange} label="Usuario" onBlur={userValidation}/><br/>

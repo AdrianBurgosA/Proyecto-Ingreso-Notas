@@ -46,6 +46,18 @@ export async function saveUser(studentData, messageBox, setMessage){
     }
 };
 
+export async function getAllStudents(){
+    try{
+        const response = await axios({
+            url: `${baseUrl}/students`,
+            method: 'GET',
+        })
+        return response
+    }catch(error){
+        console.log(error)
+    }
+}
+
 export async function getNumberStudentsPerCourse(idCourse){
     try{
         const response = await axios({
