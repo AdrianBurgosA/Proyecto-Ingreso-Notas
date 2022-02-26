@@ -1,6 +1,7 @@
 import Cookies from 'universal-cookie/es6';
 import NavbarProfessor from '../components/NavbarProfessor';
 import InsertGradesComponent from '../components/InsertGrades';
+import InsertGradesComponentPrimary from '../components/InsertGradesPrimary';
 import {saveGrades} from '../services/gradesService';
 import {getProfessorByUsername} from '../services/professorService';
 import {getCourseById} from '../services/courseService';
@@ -19,7 +20,7 @@ const InsertGrades = () => {
         name: '',
         lastName: '',
         bornYear: '',
-        idCarad: '',
+        idCard: '',
         specialization: '',
         level: '',
         disponibility: '',
@@ -128,7 +129,7 @@ const InsertGrades = () => {
             }            
         }
         loadSubjects();        
-    }, [professorValues]);
+    }, [values.quimester, values.idCourse]);
 
     useEffect(() => {
         async function loadStudents() {            
@@ -138,7 +139,7 @@ const InsertGrades = () => {
             }
         }
         loadStudents();        
-    }, [values.idCourse]);
+    }, [values.idSubject]);
 
     useEffect(() => {        
         var gradesInicialization = []
@@ -163,12 +164,31 @@ const InsertGrades = () => {
         }
     });
 
+    const tableGradesEGB = () => {
+        return (
+            <InsertGradesComponent handleSubmit={handleSubmit} gradesValues={gradesValues} setGradesValues={setGradesValues} coursesValues={coursesValues} 
+            subjectsValues={subjectsValues} values={values} setValues={setValues} />
+        );
+    };
+
+    const tableGradesPrimary = () => {
+        return (
+            <InsertGradesComponentPrimary handleSubmit={handleSubmit} gradesValues={gradesValues} setGradesValues={setGradesValues} coursesValues={coursesValues} 
+            subjectsValues={subjectsValues} values={values} setValues={setValues} />
+        );
+    };
+
     return (
         <>
             <NavbarProfessor />
             <br />
-            <InsertGradesComponent handleSubmit={handleSubmit} gradesValues={gradesValues} setGradesValues={setGradesValues} coursesValues={coursesValues} 
-                subjectsValues={subjectsValues} values={values} setValues={setValues} />
+
+            {
+                professorValues.level === "EGB"?
+                tableGradesEGB():
+                tableGradesPrimary()
+            }
+            
         </> 
     );
 

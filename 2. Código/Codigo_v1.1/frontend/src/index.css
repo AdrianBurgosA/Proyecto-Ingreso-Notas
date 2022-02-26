@@ -46,3 +46,7 @@ code {
   width: 5%;
   text-align: left;
 }
+
+.select {
+  width: 100%;
+}

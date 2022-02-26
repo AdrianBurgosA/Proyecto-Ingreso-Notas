@@ -11,7 +11,7 @@ const style = {
     p: 4,
 };
 
-const ModalUpdateGrades = ( props ) => {
+const ModalUpdateGradesPrimary = ( props ) => {
 
     const handleUpdate = props.handleUpdate;
     const modal = props.modal;
@@ -31,7 +31,10 @@ const ModalUpdateGrades = ( props ) => {
     };
     
     const handleChangeGrades = (event) => {
-        const { id, name, value } = event.target
+        const { name, value } = event.target;
+        const index = event.target.selectedIndex;
+        const optionElement = event.target.childNodes[index];
+        const id = optionElement.getAttribute('id');
         const newGrades = [];
 
         for (var i=0; i<gradesValues.length; i++) {
@@ -89,54 +92,83 @@ const ModalUpdateGrades = ( props ) => {
                                     <tr>
                                         <td>{obtainNameStudent(item.idStudent)}</td>
                                         <td>
-                                            <TextField fullWidth 
-                                                id={item.idStudent} 
+                                            <select
+                                                class="select"
                                                 name="lessons"
                                                 value={item.grades[0].lessons} 
                                                 onChange={handleChangeGrades}
-                                                label="Lecciones" 
-                                                type="number"
-                                            />
+                                                label="Lecciones"
+                                            >
+                                                <option disabled selected>Seleccione una calificación </option>
+                                                <option id={item.idStudent} value="I">I</option>
+                                                <option id={item.idStudent} value="EP">EP</option>
+                                                <option id={item.idStudent} value="A">A</option>
+                                                <option id={item.idStudent} value="N/E">N/E</option>
+                                            </select>
                                         </td>
                                         <td>
-                                            <TextField fullWidth 
-                                                id={item.idStudent} 
-                                                name="participations"
+                                            
+                                            <select
+                                                class="select"
+                                                name='participations'
                                                 value={item.grades[0].participations} 
+                                                label="Participaciones"
                                                 onChange={handleChangeGrades}
-                                                label="Participaciones" 
-                                                type="number"
-                                            />
+                                            >
+                                                <option disabled selected>Seleccione una calificación </option>
+                                                <option id={item.idStudent} value="I">I</option>
+                                                <option id={item.idStudent} value="EP">EP</option>
+                                                <option id={item.idStudent} value="A">A</option>
+                                                <option id={item.idStudent} value="N/E">N/E</option>
+                                            </select>
                                         </td>
                                         <td>
-                                            <TextField fullWidth 
-                                                id={item.idStudent} 
-                                                name="homeworks"
+                                            <select
+                                                class="select"
+                                                name='homeworks'
                                                 value={item.grades[0].homeworks} 
+                                                label="Deberes"
                                                 onChange={handleChangeGrades}
-                                                label="Deberes" 
-                                                type="number"
-                                            />
+                                            >
+                                                <option disabled selected>Seleccione una calificación </option>
+                                                <option id={item.idStudent} value="I">I</option>
+                                                <option id={item.idStudent} value="EP">EP</option>
+                                                <option id={item.idStudent} value="A">A</option>
+                                                <option id={item.idStudent} value="N/E">N/E</option>
+                                                    
+                                            </select>
                                         </td>
                                         <td>
-                                            <TextField fullWidth 
-                                                id={item.idStudent} 
-                                                name="project"
+                                            <select
+                                                class="select"
+                                                name='project'
                                                 value={item.grades[0].project} 
+                                                label="Proyecto"
                                                 onChange={handleChangeGrades}
-                                                label="Proyecto" 
-                                                type="number"
-                                            />
+                                            >
+                                                <option disabled selected>Seleccione una calificación </option>
+                                                <option id={item.idStudent} value="I">I</option>
+                                                <option id={item.idStudent} value="EP">EP</option>
+                                                <option id={item.idStudent} value="A">A</option>
+                                                <option id={item.idStudent} value="N/E">N/E</option>
+
+                                            </select>
                                         </td>
                                         <td>
-                                            <TextField fullWidth 
-                                                id={item.idStudent} 
-                                                name="exam"
+                                            <select
+                                                class="select"
+                                                name='exam'
                                                 value={item.grades[0].exam} 
+                                                label="Examen"
                                                 onChange={handleChangeGrades}
-                                                label="Examen" 
-                                                type="number"
-                                            />
+                                            >
+                                                <option disabled selected>Seleccione una calificación </option>
+                                                <option id={item.idStudent} value="I">I</option>
+                                                <option id={item.idStudent} value="EP">EP</option>
+                                                <option id={item.idStudent} value="A">A</option>
+                                                <option id={item.idStudent} value="N/E">N/E</option>
+                                                    
+                                            </select>
                                         </td>
                                     </tr>
                                 ))
@@ -181,4 +213,4 @@ const ModalUpdateGrades = ( props ) => {
         </>
     )
 }
-export default ModalUpdateGrades
+export default ModalUpdateGradesPrimary;

@@ -1,7 +1,9 @@
 import Cookies from 'universal-cookie/es6';
 import NavbarProfessor from '../components/NavbarProfessor';
 import TableGradesProfessor from '../components/TableGradesProfessor';
+import TableGradesProfessorPrimary from '../components/TableGradesProfessorPrimary';
 import ModalUpdateGrades from '../components/ModalUpdateGrades';
+import ModalUpdateGradesPrimary from '../components/ModalUpdateGradesPrimary';
 import {getProfessorByUsername} from '../services/professorService';
 import {getCourseById} from '../services/courseService';
 import {getSubjectsByTypeAndLevel, getSubjectById} from '../services/subjectService';
@@ -177,11 +179,45 @@ const SeeGradesProfessor = () => {
         }
     });
 
+    const tableGradesEGB = () => {
+        return (
+            <TableGradesProfessor gradesValues={gradesValues} coursesValues={coursesValues} subjectsValues={subjectsValues} 
+            studentsValues={studentsValues} values={values} setValues={setValues} />
+        );
+    };
+
+    const tableGradesPrimary = () => {
+        return (
+            <TableGradesProfessorPrimary gradesValues={gradesValues} coursesValues={coursesValues} subjectsValues={subjectsValues} 
+            studentsValues={studentsValues} values={values} setValues={setValues} />
+        );
+    };
+
+    const modalUpdateGradesEGB = () => {
+        return (
+            <ModalUpdateGrades handleUpdate={handleUpdate} modal={modal} setModal={setModal} gradesValues={gradesValues} 
+            setGradesValues={setGradesValues} studentsValues={studentsValues} />
+        );
+    };
+
+    const modalUpdateGradesPrimary = () => {
+        return (
+            <ModalUpdateGradesPrimary handleUpdate={handleUpdate} modal={modal} setModal={setModal} gradesValues={gradesValues} 
+            setGradesValues={setGradesValues} studentsValues={studentsValues} />
+        );
+    };
+
     return (
         <>
             <NavbarProfessor />
             <br />
-            <TableGradesProfessor gradesValues={gradesValues} coursesValues={coursesValues} subjectsValues={subjectsValues} studentsValues={studentsValues} values={values} setValues={setValues} />
+            
+            {
+                professorValues.level === "EGB"?
+                tableGradesEGB():
+                tableGradesPrimary()
+            }
+            
             <br />
             <Button
                 variant="contained"
@@ -197,7 +233,14 @@ const SeeGradesProfessor = () => {
                 Editar
             </Button>
             <br />
-            <ModalUpdateGrades handleUpdate={handleUpdate} modal={modal} setModal={setModal} gradesValues={gradesValues} setGradesValues={setGradesValues} studentsValues={studentsValues} />
+            
+            {
+                professorValues.level === "EGB"?
+                modalUpdateGradesEGB():
+                modalUpdateGradesPrimary()
+                
+            }
+
         </> 
     );
 

@@ -66,9 +66,13 @@ export async function getSubjectById(idSubject){
             url: `${baseUrl}/subjects/${idSubject}`,
             method: 'GET',
         })
-        
+        var subjects = [];
+        subjects.push(response.data);
+
+        response.data = subjects;
+    
         return response;
-  
+        
     }catch(error){
       console.log(error)
     }
