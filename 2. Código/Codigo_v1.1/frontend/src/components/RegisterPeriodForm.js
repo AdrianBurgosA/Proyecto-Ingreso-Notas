@@ -26,13 +26,14 @@ const RegisterPeriodForm = (props) => {
     const [ period, setPeriod ] = useState({
         name: '',
         startDate: new Date(),
-        endDate: new Date()
+        endDate: new Date(),
+        actual: true
     })
 
     const [validation, setValidation] = useState({
         nameOk: false,
         startDateOk: false,
-        endDateOk: false
+        endDateOk: true
     })
 
     const handleSubmitInternal = (e) => {

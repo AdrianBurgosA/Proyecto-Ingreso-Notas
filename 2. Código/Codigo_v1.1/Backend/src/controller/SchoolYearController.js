@@ -20,17 +20,27 @@ router.get("/schoolYears", (req, res) => {
 
 //get a school year
 router.get("/schoolYears/:id", (req, res) => {
-const { id } = req.params;
+    const { id } = req.params;
     SchoolYear.findById(id)
+        .then((data) => res.json(data))
+        .catch((error) => res.json({ message: error }));
+});
+
+//get the actual school year
+router.get("/actualSchoolYear/:actual", (req, res) => {
+    const { actual } = req.params;
+    SchoolYear.find({
+        actual: actual
+    })
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });
 
 //update a school year
 router.put("/schoolYears/:id", (req, res) => {
-const { id } = req.params;
-const {name, startDate, endDate} = req.body;
-    SchoolYear.updateOne({_id: id},{$set: {name, startDate, endDate}})
+    const { id } = req.params;
+    const {actual} = req.body;
+    SchoolYear.updateOne({_id: id},{$set: {actual}})
         .then((data) => res.json(data))
         .catch((error) => res.json({ message: error }));
 });

@@ -4,7 +4,7 @@ import NavbarAdmin from '../components/NavbarAdmin';
 import Cookies from 'universal-cookie/es6';
 import {useEffect, useState} from 'react';
 import {getCoursesWithoutSchoolYear, updateCourse, getCourseById} from '../services/courseService';
-import {getSchoolYears} from '../services/periodService';
+import {getActualSchoolYear} from '../services/periodService';
 
 const cookies = new Cookies();
 
@@ -31,7 +31,7 @@ const AssignationCourseToSchoolYear = () => {
 
     useEffect(() => {
         async function loadSchoolYears() {
-            const response = await getSchoolYears();
+            const response = await getActualSchoolYear();
 
             if (response.status === 200) {
                 setSchoolYears(response.data);

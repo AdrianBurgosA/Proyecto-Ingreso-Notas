@@ -13,6 +13,10 @@ const schoolYearSchema = mongoose.Schema({
     endDate:{
         type: 'string',
         required: true
+    },
+    actual:{
+        type: 'boolean',
+        required: true
     }
 })
 

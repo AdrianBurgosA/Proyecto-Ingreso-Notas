@@ -2,6 +2,7 @@ import Cookies from 'universal-cookie/es6';
 import NavbarStudent from '../components/NavbarStudent';
 import TableGradesStudent from '../components/TableGradesStudent';
 import TableGradesStudentPrimary from '../components/TableGradesStudentPrimary';
+import SchoolYear from '../components/SchoolYear';
 import {getStudentByUsername} from '../services/studentService';
 import {getGradesByStudentAndQuimester} from '../services/gradesService';
 import {getCourseById} from '../services/courseService';
@@ -52,6 +53,8 @@ const SeeGradesProfessor = () => {
             const response = await getCourseById(studentValues.idCourse);
                 
             if (response.status === 200) {
+
+                //if 
                 setCourseValues(response.data);
                 setValues({...values, idCourse: studentValues.idCourse});
                 
@@ -115,9 +118,9 @@ const SeeGradesProfessor = () => {
         <>
             <NavbarStudent />
             <br />
-
+            <SchoolYear />
             {
-                studentValues.level === "EGB" ?
+                courseValues.level === "EGB" ?
                 tableGradesStudentEGB() :
                 tableGradesStudedntPrimary()
             }

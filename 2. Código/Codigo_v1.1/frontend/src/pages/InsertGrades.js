@@ -1,6 +1,7 @@
 import Cookies from 'universal-cookie/es6';
 import NavbarProfessor from '../components/NavbarProfessor';
 import InsertGradesComponent from '../components/InsertGrades';
+import SchoolYear from '../components/SchoolYear';
 import InsertGradesComponentPrimary from '../components/InsertGradesPrimary';
 import {saveGrades} from '../services/gradesService';
 import {getProfessorByUsername} from '../services/professorService';
@@ -9,6 +10,7 @@ import {getSubjectsByTypeAndLevel, getSubjectById} from '../services/subjectServ
 import {getStudentsByCourse} from '../services/studentService';
 import {getSubjectsWithoutGrades} from '../services/gradesService';
 import {useEffect, useState} from 'react';
+import { getActualSchoolYear } from '../services/periodService';
 
 const cookies = new Cookies();
 
@@ -81,9 +83,13 @@ const InsertGrades = () => {
             var courses = [];
             
             for (var i=0; i<professorValues.idCourse.length; i++) {
-                const response = await getCourseById(professorValues.idCourse[i]);                
+                const response = await getCourseById(professorValues.idCourse[i]);  
+                const response2 = await getActualSchoolYear();
+
                 if (response.status === 200) {
-                    courses.push(response.data);                    
+                    if (response.data.idSchoolYear === response2.data[0]._id) {
+                        courses.push(response.data);                    
+                    }
                 }
             }
             setCoursesValues(courses);
@@ -182,6 +188,7 @@ const InsertGrades = () => {
         <>
             <NavbarProfessor />
             <br />
+            <SchoolYear />
 
             {
                 professorValues.level === "EGB"?

@@ -2,6 +2,7 @@ import Cookies from 'universal-cookie/es6';
 import NavbarProfessor from '../components/NavbarProfessor';
 import TableGradesProfessor from '../components/TableGradesProfessor';
 import TableGradesProfessorPrimary from '../components/TableGradesProfessorPrimary';
+import SchoolYear from '../components/SchoolYear';
 import ModalUpdateGrades from '../components/ModalUpdateGrades';
 import ModalUpdateGradesPrimary from '../components/ModalUpdateGradesPrimary';
 import {getProfessorByUsername} from '../services/professorService';
@@ -9,6 +10,7 @@ import {getCourseById} from '../services/courseService';
 import {getSubjectsByTypeAndLevel, getSubjectById} from '../services/subjectService';
 import {getStudentsByCourse} from '../services/studentService';
 import {getGradesByCourseSubjectAndQuimester, getSubjectsWithoutGrades, updateGrades} from '../services/gradesService';
+import { getActualSchoolYear } from '../services/periodService';
 import {useEffect, useState} from 'react';
 import { Button } from '@mui/material';
 
@@ -83,10 +85,12 @@ const SeeGradesProfessor = () => {
             
             for (var i=0; i<professorValues.idCourse.length; i++) {
                 const response = await getCourseById(professorValues.idCourse[i]);
+                const response2 = await getActualSchoolYear();
                 
                 if (response.status === 200) {
-                    courses.push(response.data);
-                    
+                    if (response.data.idSchoolYear === response2.data[0]._id) {
+                        courses.push(response.data);                    
+                    }
                 }
             }
 
@@ -211,7 +215,7 @@ const SeeGradesProfessor = () => {
         <>
             <NavbarProfessor />
             <br />
-            
+            <SchoolYear />
             {
                 professorValues.level === "EGB"?
                 tableGradesEGB():

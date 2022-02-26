@@ -113,13 +113,12 @@ export async function getCoursesWithCapacity(){
 };
 
 export async function updateCourse(courseData, setCourseData){
-    console.log(courseData);
     const response = await axios.put(`${baseUrl}/courses/${courseData._id}`, {
         idSchoolYear: courseData.idSchoolYear
     })
     .then(response => {
         window.alert('Asignación realizada con éxito');
-      
+        window.location.reload();
     })
     .catch(error => {
       console.log(error);
