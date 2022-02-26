@@ -1,6 +1,7 @@
 import Cookies from 'universal-cookie/es6';
-import NavbarProfessor from '../components/NavbarProfessor';
+import NavbarStudent from '../components/NavbarStudent';
 import TableGradesStudent from '../components/TableGradesStudent';
+import TableGradesStudentPrimary from '../components/TableGradesStudentPrimary';
 import {getStudentByUsername} from '../services/studentService';
 import {getGradesByStudentAndQuimester} from '../services/gradesService';
 import {getCourseById} from '../services/courseService';
@@ -96,11 +97,31 @@ const SeeGradesProfessor = () => {
         }
     });
 
+    const tableGradesStudentEGB = () => {
+        return (
+            <TableGradesStudent gradesValues={gradesValues} subjectsValues={subjectsValues} values={values} setValues={setValues} />
+            
+        );
+    }
+
+    const tableGradesStudedntPrimary = () => {
+        return (
+            <TableGradesStudentPrimary gradesValues={gradesValues} subjectsValues={subjectsValues} values={values} setValues={setValues} />
+            
+        );
+    }
+
     return (
         <>
-            <NavbarProfessor />
+            <NavbarStudent />
             <br />
-            <TableGradesStudent gradesValues={gradesValues} subjectsValues={subjectsValues} values={values} setValues={setValues} />
+
+            {
+                studentValues.level === "EGB" ?
+                tableGradesStudentEGB() :
+                tableGradesStudedntPrimary()
+            }
+
             <br />
         </> 
     );

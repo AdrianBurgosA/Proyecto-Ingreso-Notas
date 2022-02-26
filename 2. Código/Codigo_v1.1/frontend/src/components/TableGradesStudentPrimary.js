@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import {MenuItem, FormControl, InputLabel, Select} from '@mui/material';
 
-const TableGradesStudent = (props) => {
+const TableGradesStudentPrimary = (props) => {
 
     const gradesValues = props.gradesValues;
     const subjectsValues = props.subjectsValues;
@@ -22,17 +22,6 @@ const TableGradesStudent = (props) => {
                 return subjectsValues[i].name;
             }
         }
-
-    };
-
-    const obtainAverage = (grades) => {
-        const lessonsAveraged = 0.2 * grades.lessons;
-        const participationsAveraged = 0.2 * grades.participations;
-        const homeworksAveraged = 0.2 * grades.homeworks;
-        const projectAveraged = 0.2 * grades.project;
-        const examAveraged = 0.2 * grades.exam;
-
-        return lessonsAveraged + participationsAveraged + homeworksAveraged + projectAveraged + examAveraged;
 
     };
 
@@ -79,7 +68,6 @@ const TableGradesStudent = (props) => {
                         <th>Deberes</th>
                         <th>Proyecto</th>
                         <th>Examen</th>
-                        <th>Promedio</th>
                     </tr>
 
                     {
@@ -91,7 +79,6 @@ const TableGradesStudent = (props) => {
                                 <td>{item.grades[0].homeworks}</td>
                                 <td>{item.grades[0].project}</td>
                                 <td>{item.grades[0].exam}</td>
-                                <td>{obtainAverage(item.grades[0])}</td>
                             </tr>
                         ))
                     }
@@ -103,4 +90,4 @@ const TableGradesStudent = (props) => {
         </>
     );
 }
-export default TableGradesStudent;
+export default TableGradesStudentPrimary;
