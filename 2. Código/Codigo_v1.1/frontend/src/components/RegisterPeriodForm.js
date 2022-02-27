@@ -9,8 +9,12 @@ import '../index.css'
 const RegisterPeriodForm = (props) => {
     const {handleSubmit} = props
     const [ messageBox, setMessage ] = useState({type: '', message: '', isHidden: true})
-    const todayDate = new Date()
-    
+    const [ period, setPeriod ] = useState({
+        name: '',
+        startDate: new Date(),
+        endDate: new Date()
+    })
+
     useEffect(() => {
         var todayDate = new Date();
         var month = todayDate.getMonth()+1;
@@ -23,13 +27,6 @@ const RegisterPeriodForm = (props) => {
         setPeriod({...period, startDate:(year)+"-"+month+"-"+day , endDate: year+"-"+month+"-"+day })
     }, []);
     
-    const [ period, setPeriod ] = useState({
-        name: '',
-        startDate: new Date(),
-        endDate: new Date(),
-        actual: true
-    })
-
     const [validation, setValidation] = useState({
         nameOk: false,
         startDateOk: false,
@@ -77,45 +74,59 @@ const RegisterPeriodForm = (props) => {
         const year = document.getElementById('startDate')
         const born = new Date(year.value)
         const actualDate = new Date()
-        const iterator = 0
-        if(year.value === ''){
-            setValidation({...validation,startDateOk: false})
-            iYear.textContent = "*Escoga una fecha. Campo obligatorio"
-            iterator++
-        }else if(born.getFullYear() > actualDate.getFullYear()){
-            setValidation({...validation,startDateOk: false})
-            iYear.textContent = "*El año escogido supera al año actual"
-            iterator++
-        }else if(born.getFullYear() === actualDate.getFullYear()){
-            if((born.getMonth() <= actualDate.getMonth()) && (born.getDay() <= actualDate.getDay())){
-                iYear.textContent = ""
-                setValidation({...validation, startDateOk: true}) 
-            }else{
-                setValidation({...validation,startDateOk: false})
-                iYear.textContent = "*La fecha escogida no debe se mayor a la fecha actual."
-                iterator++
-            }
-        }
 
-        if(iterator === 0){
-            iYear.textContent = ""
-            year.style.border = ''
-            setValidation({...validation, startDateOk: true})
-        }else{
+        if(actualDate.getFullYear() !== born.getFullYear()){
+            iYear.textContent = "*El año lectivo debe comenzar en el año actual"
+            setValidation({...validation, startDateOk: false})
             year.style.borderTop='2px solid red'
             year.style.borderBottom='2px solid red'
             year.style.borderRight='2px solid red'
             year.style.borderLeft='2px solid red'
             year.style.borderRadius='5px'
+        }else{
+            iYear.textContent = ''
+            year.style.border = ''
+            setValidation({...validation, startDateOk: true})
         }
+        /*if(actualDate.getFullYear() !== born.getFullYear()){
+            iYear.textContent = `actual year: ${actualDate.getFullYear()} // selected year: ${born.getFullYear()}` //mensaje error
+        }else{
+            if((actualDate.getMonth() + 1) < (born.getMonth() + 1)){
+                iYear.textContent = `actual month: ${actualDate.getMonth()+1} // selected month: ${born.getMonth()+1}` //mensaje error
+            }else if(actualDate.getMonth() === born.getMonth()){
+                if(actualDate.getDate() < (born.getDate() + 1)){
+                    iYear.textContent = `actual day: ${actualDate.getDate()} // selected day: ${born.getDate()+1}` //mensaje error
+                }else{
+                    iYear.textContent = ''
+                    setPeriod({...period, startDate: born})
+                }
+            }else{
+                iYear.textContent = ''
+                setPeriod({...period, startDate: born})
+            }
+        }*/
     }
 
     const endDateValidation = () => {
-        const endDate = document.getElementById('endDate')
-        const endDateSelected = new Date(endDate.value)
-        const iEndDate = document.getElementById('iEndDate')
-        const actualDate = new Date()
-        iEndDate.textContent = `selected: ${endDateSelected} / actual: ${actualDate}`
+        const iYear = document.getElementById('iEndDate')
+        const year = document.getElementById('endDate')
+        const start = document.getElementById('startDate')
+        const born = new Date(year.value)
+        const actualDate = new Date(start.value)
+
+        if((born.getFullYear() < actualDate.getFullYear()) || (born.getFullYear() > (actualDate.getFullYear() + 1))){
+            iYear.textContent = "*El año de finalizalión sobrepasa el límite."
+            setValidation({...validation, endDateOk: false})
+            year.style.borderTop='2px solid red'
+            year.style.borderBottom='2px solid red'
+            year.style.borderRight='2px solid red'
+            year.style.borderLeft='2px solid red'
+            year.style.borderRadius='5px'
+        }else{
+            iYear.textContent = ''
+            year.style.border = ''
+            setValidation({...validation, endDateOk: true})
+        }
     }
 
     return(
@@ -153,7 +164,6 @@ const RegisterPeriodForm = (props) => {
                     id="endDate"
                     label="Fecha de cierre"
                     type="date"
-                    defaultValue="2023-05-24"
                     value={period.endDate}
                     onChange= {(event) => setPeriod({...period,endDate: event.target.value})}
                     style={{ width:'100%'}}
