@@ -12,7 +12,8 @@ const RegisterPeriodForm = (props) => {
     const [ period, setPeriod ] = useState({
         name: '',
         startDate: new Date(),
-        endDate: new Date()
+        endDate: new Date(),
+        actual: true
     })
 
     useEffect(() => {
@@ -35,7 +36,11 @@ const RegisterPeriodForm = (props) => {
 
     const handleSubmitInternal = (e) => {
         e.preventDefault();
-        handleSubmit(period, setPeriod, messageBox, setMessage)
+        if(validation.nameOk && validation.startDateOk && validation.endDateOk){
+            handleSubmit(period, setPeriod, messageBox, setMessage)
+        }else{
+            setMessage({type: 'error', message: 'Ingresa correctamente los campos', isHidden: false})
+        }
     };
 
     const nameValidation = () => {
@@ -88,23 +93,6 @@ const RegisterPeriodForm = (props) => {
             year.style.border = ''
             setValidation({...validation, startDateOk: true})
         }
-        /*if(actualDate.getFullYear() !== born.getFullYear()){
-            iYear.textContent = `actual year: ${actualDate.getFullYear()} // selected year: ${born.getFullYear()}` //mensaje error
-        }else{
-            if((actualDate.getMonth() + 1) < (born.getMonth() + 1)){
-                iYear.textContent = `actual month: ${actualDate.getMonth()+1} // selected month: ${born.getMonth()+1}` //mensaje error
-            }else if(actualDate.getMonth() === born.getMonth()){
-                if(actualDate.getDate() < (born.getDate() + 1)){
-                    iYear.textContent = `actual day: ${actualDate.getDate()} // selected day: ${born.getDate()+1}` //mensaje error
-                }else{
-                    iYear.textContent = ''
-                    setPeriod({...period, startDate: born})
-                }
-            }else{
-                iYear.textContent = ''
-                setPeriod({...period, startDate: born})
-            }
-        }*/
     }
 
     const endDateValidation = () => {

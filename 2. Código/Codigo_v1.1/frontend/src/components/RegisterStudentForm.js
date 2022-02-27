@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect } from 'react'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -22,7 +22,9 @@ const RegisterStudentForm = (props) => {
         emailOk: false,
         bornYearOk: false,
         userOk: false,
-        passwordOk: false
+        passwordOk: false,
+        genreOk: false,
+        nationalityOk: false
     })
 
     const [studentValues, setStudentValues] = useState({
@@ -37,6 +39,18 @@ const RegisterStudentForm = (props) => {
         password: '',
         idCourse: ''
     });
+
+    useEffect(() => {
+        var todayDate = new Date();
+        var month = todayDate.getMonth()+1;
+        var day = todayDate.getDate();
+        var year = todayDate.getFullYear()-4; 
+        if(day<10)
+            day='0'+day; 
+        if(month<10)
+            month='0'+month 
+            setStudentValues({...studentValues, bornYear:(year)+"-"+month+"-"+day})
+    }, []);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -399,43 +413,78 @@ const RegisterStudentForm = (props) => {
         return true
     }
 
+    const genreValidation = () => {
+        const iGenre = document.getElementById('iGenre')
+        const selector = document.getElementById('genre')
+
+        if((studentValues.genre !== 'M') && (studentValues.genre !== 'F')){
+            iGenre.textContent = "*Este campo es obligatorio"
+            selector.style.borderTop='2px solid red'
+            selector.style.borderBottom='2px solid red'
+            selector.style.borderRight='2px solid red'
+            selector.style.borderLeft='2px solid red'
+            selector.style.borderRadius='5px'
+            setValidation({...validation, genreOk: false})
+        }else{
+            iGenre.textContent = ""
+            selector.style.border = ''
+            setValidation({...validation, genreOk: true})
+        }
+    }
+
+    const nationalityValidation = () => {
+        const iNation = document.getElementById('iNational')
+        const national = document.getElementById('national')
+        const auxIterator = 0
+
+        countriesLatam.forEach(country => {
+            if(country === studentValues.nationality){
+                auxIterator++
+            }
+        })
+
+        if(auxIterator === 0){
+            iNation.textContent = ''
+            national.style.border = ''
+            setValidation({...validation, nationalityOk: true})
+        }else{
+            iNation.textContent = "*Este campo es obligatorio"
+            national.style.borderTop='2px solid red'
+            national.style.borderBottom='2px solid red'
+            national.style.borderRight='2px solid red'
+            national.style.borderLeft='2px solid red'
+            national.style.borderRadius='5px'
+            setValidation({...validation, nationalityOk: false})
+        }
+    }
 
     const dateValidation = () => {
         const iYear = document.getElementById('iYear')
         const year = document.getElementById('date')
         const born = new Date(year.value)
         const actualDate = new Date()
-        const iterator = 0
-        if(year.value === ''){
-            setValidation({...validation,bornYearOk: false})
-            iYear.textContent = "*Escoga una fecha. Campo obligatorio"
-            iterator++
-        }else if(born.getFullYear() > actualDate.getFullYear()){
+
+        if(actualDate.getFullYear() < born.getFullYear()){
             setValidation({...validation,bornYearOk: false})
             iYear.textContent = "*El año escogido supera al año actual"
-            iterator++
-        }else if(born.getFullYear() === actualDate.getFullYear()){
-            if((born.getMonth() <= actualDate.getMonth()) && (born.getDay() <= actualDate.getDay())){
-                iYear.textContent = ""
-                setValidation({...validation, bornYearOk: true}) 
-            }else{
-                setValidation({...validation,bornYearOk: false})
-                iYear.textContent = "*La fecha escogida no debe se mayor a la fecha actual."
-                iterator++
-            }
-        }
-
-        if(iterator === 0){
-            iYear.textContent = ""
-            year.style.border = ''
-            setValidation({...validation, bornYearOk: true})
-        }else{
             year.style.borderTop='2px solid red'
             year.style.borderBottom='2px solid red'
             year.style.borderRight='2px solid red'
             year.style.borderLeft='2px solid red'
             year.style.borderRadius='5px'
-        }
+        }else if((actualDate.getFullYear() === born.getFullYear()) || (born.getFullYear() > (actualDate.getFullYear()-4))){
+            setValidation({...validation,bornYearOk: false})
+            iYear.textContent = "*El estudiante debe tener  como mínimo 4 años"
+            year.style.borderTop='2px solid red'
+            year.style.borderBottom='2px solid red'
+            year.style.borderRight='2px solid red'
+            year.style.borderLeft='2px solid red'
+            year.style.borderRadius='5px'
+        }else{
+            iYear.textContent = ''
+            year.style.border = ''
+            setValidation({...validation, bornYearOk: true})
+        } 
     }
 
     return(
@@ -457,15 +506,15 @@ const RegisterStudentForm = (props) => {
                 <i id="iCard" class="msgError"></i><br/>
                 <FormControl fullWidth>
                     <InputLabel id="labelLevels">Género</InputLabel>
-                    <Select id = "genre" name='genre' onChange={handleChange}>
-                        <MenuItem disabled selected>Seleccione el nivel</MenuItem>
-                        <MenuItem value="M">Masculino</MenuItem>
+                    <Select id="genre" name='genre' onChange={handleChange}>
+                        <MenuItem value="M" selected>Masculino</MenuItem>
                         <MenuItem value="F">Femenino</MenuItem>
-                    </Select><br/>
+                    </Select>
                 </FormControl><br/>
+                <i id="iGenre" class="msgError"></i><br/>
                 <FormControl fullWidth>
                     <InputLabel id="nationality">Nacionalidad</InputLabel>
-                    <Select id = "national" name='nationality' onChange={handleChange}>
+                    <Select id = "national" name='nationality' onChange={handleChange} >
                         {
                             countriesLatam.map(country => 
                                 <MenuItem value={country}>{country}</MenuItem>
@@ -473,7 +522,7 @@ const RegisterStudentForm = (props) => {
                         }
                     </Select>
                 </FormControl><br/>
-                <i id="iEmail" class="msgError"></i><br/>
+                <i id="iNational" class="msgError"></i><br/>
                 <TextField id = "email" name='email' value={studentValues.email} onChange={handleChange} label="Correo eléctronico" onBlur={emailValidation}/><br/>
                 <i id="iEmail" class="msgError"></i><br/>
                 <TextField id = "user" name='user' value={studentValues.user} onChange={handleChange} label="Usuario" onBlur={userValidation}/><br/>
