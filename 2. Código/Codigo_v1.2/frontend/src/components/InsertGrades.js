@@ -146,6 +146,9 @@ const InsertGrades = (props) => {
                       onChange={handleChangeGrades}
                       label="Lecciones"
                       type="number"
+                      min = "0"
+                      step ="0.01"
+                      max = "20"
                     />
                   </td>
                   <td className="text-center">
@@ -157,6 +160,9 @@ const InsertGrades = (props) => {
                       onChange={handleChangeGrades}
                       label="Participaciones"
                       type="number"
+                      min = "0"
+                      step ="0.01"
+                      max = "20"
                     />
                   </td>
                   <td className="text-center">
@@ -168,6 +174,9 @@ const InsertGrades = (props) => {
                       onChange={handleChangeGrades}
                       label="Deberes"
                       type="number"
+                      min = "0"
+                      step ="0.01"
+                      max = "20"
                     />
                   </td>
                   <td className="text-center">
@@ -179,6 +188,9 @@ const InsertGrades = (props) => {
                       onChange={handleChangeGrades}
                       label="Proyecto"
                       type="number"
+                      min = "0"
+                      step ="0.01"
+                      max = "20"
                     />
                   </td>
                   <td className="text-center">
@@ -190,6 +202,9 @@ const InsertGrades = (props) => {
                       onChange={handleChangeGrades}
                       label="Examen"
                       type="number"
+                      min = "0"
+                      step ="0.01"
+                      max = "20"
                     />
                   </td>
                 </tr>
