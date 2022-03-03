@@ -42,7 +42,7 @@ const FormAssignationCourseToProfessor = (props) => {
 
     setProfessor({ ...professor, [name]: coursesArray });
   };
-
+  
   const handleUpdateInternal = (e) => {
     e.preventDefault();
     handleUpdate(professor, setProfessor);

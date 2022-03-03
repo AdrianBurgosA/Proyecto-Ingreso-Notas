@@ -34,7 +34,13 @@ const AssignationStudentToCourse = () => {
             const response = await getCoursesWithCapacity();
 
             if (response.status === 200) {
-                setCourses(response.data);
+                var courses = [];
+                for (var i=0; i<response.data.length; i++) {
+                    if (response.data[i].idSchoolYear !== "") {
+                        courses.push(response.data[i]);
+                    }
+                }
+                setCourses(courses);
             };
         };
 

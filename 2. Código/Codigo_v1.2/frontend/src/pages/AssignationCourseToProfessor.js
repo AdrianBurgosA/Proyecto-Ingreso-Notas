@@ -4,13 +4,28 @@ import Cookies from 'universal-cookie/es6';
 import NavbarAdmin from '../components/NavbarAdmin';
 import { getProfessorsByLevel, updateCoursesProfessor, getProfessorById } from '../services/professorService';
 import { getCourseByNevel } from '../services/courseService'
+import { breadcrumbsClasses } from '@mui/material';
 
 const cookies = new Cookies();
 
 const AssignationCourseToProfessor = () => {
     const [ professors, setProfessors ] = useState([]);
     const [ courses, setCourses ] = useState([]);
-    const [ professor, setProfessor ] = useState({});
+    const [ professor, setProfessor ] = useState({
+        bornYear: "",
+        disponibility: 2,
+        email: "",
+        idCard: "",
+        idCourse: [],
+        idSubject: "",
+        lastName: "",
+        level: "",
+        name: "",
+        password: "",
+        specialization: "",
+        user: "",
+        _id: ""
+    });
     const [ level, setLevel ] = useState("");
     const [ id, setId ] = useState("")
 
@@ -22,17 +37,6 @@ const AssignationCourseToProfessor = () => {
             };
         };
         loadProfessors();
-    }, [level]);
-
-    useEffect(() => {
-        async function loadCourses() {
-            const response = await getCourseByNevel(level);
-            if (response.status === 200) {
-                setCourses(response.data);
-            };
-        };
-
-        loadCourses();
     }, [level]);
     
     useEffect(() => {
@@ -53,7 +57,7 @@ const AssignationCourseToProfessor = () => {
                 })
             }; 
             for(var i = 0; i < newArray.length; i++){
-                if(coursesArray.includes(newArray[i]) == false){
+                if(coursesArray.includes(newArray[i]) === false){
                     newCourses.push(newArray[i])
                 }
             }
@@ -62,6 +66,41 @@ const AssignationCourseToProfessor = () => {
         
         findProfessor();     
     }, [id]);
+
+    useEffect(() => {
+        async function loadCourses() {
+            const response = await getCourseByNevel(level);
+            
+            if (response.status === 200) {
+                var courses = [];
+                console.log(professor)
+                for (var i=0; i<response.data.length; i++) {
+                    /*if (professor.disponibility === 1) {
+                        var auxBool = true;
+                        for (var j=0; j<professor.idCourse.length; j++) {
+                            if (professor.idCourse[j] === response.data[i]._id) {
+                                auxBool = false;
+                            }
+                        }
+
+                        if (auxBool === true && response.data[i].idSchoolYear !== "") {
+                            courses.push(response.data[i]);
+                        }
+
+                    }else {*/
+                        if (response.data[i].idSchoolYear !== "") {
+                            courses.push(response.data[i]);
+                        }
+                    //}
+                        
+                }
+
+                setCourses(courses);
+            };
+        };
+
+        loadCourses();
+    }, [level]);
 
     useEffect(() => {
         if (typeof cookies.get('user') === 'undefined' || cookies.get('type', {path: "/"}) !== '0') {

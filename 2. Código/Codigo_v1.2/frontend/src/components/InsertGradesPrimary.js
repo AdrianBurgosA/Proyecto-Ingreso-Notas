@@ -246,7 +246,7 @@ const InsertGrades = (props) => {
                     label="Examen"
                     onChange={handleChangeGrades}
                   >
-                    <option disabled selected>
+                    <option disabled selected value="I">
                       Seleccione una Calificación{" "}
                     </option>
                     <option id={item.idStudent} value="I">

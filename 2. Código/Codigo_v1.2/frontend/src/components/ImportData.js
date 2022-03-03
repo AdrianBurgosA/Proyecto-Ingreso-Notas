@@ -37,6 +37,8 @@ const ImportData = (props) => {
     values.map((data) => {
       handleSubmit(data);
     });
+    window.alert("Información registrada con éxito");
+    window.location.reload();
   };
 
   return (
